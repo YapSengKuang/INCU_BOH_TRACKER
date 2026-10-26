@@ -4,7 +4,7 @@ Updated 26 October 2026. Firebase replaces the Supabase prototype, retained unde
 
 ## Local development
 
-Hosted setup is complete for the local app: rules/indexes deployed, the live catalogue seeded, Google sign-in enabled, and the first verified owner bootstrapped. Cloudflare still needs this frontend release and its five environment variables. The numbered steps below document repeatable setup, not unfinished local provisioning.
+Hosted setup is complete for the local app: rules/indexes deployed, the live catalogue seeded, Google sign-in enabled, and the first verified owner bootstrapped. Cloudflare now serves the corrected frontend with its five environment variables; guest browsing and navigation were verified on the public URL on 27 October 2026. Production Google sign-in remains a release check. The numbered steps below document repeatable setup, not unfinished local provisioning.
 
 Requires Node 22.12+ (Node 24 tested). With all five Firebase/store variables unset the app uses isolated sample browser data. Partial configuration is an error. Connected mode removes the sample role picker and uses actual Google authentication and membership.
 

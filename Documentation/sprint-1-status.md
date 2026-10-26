@@ -33,12 +33,12 @@ Completed hosted setup:
 
 The administrator's explicit CLI-account path now uses Firestore's public server-client constructor with in-memory OAuth user credentials; Firebase Admin Auth uses its token credential. Both live seed and verified-owner bootstrap succeeded through this path. No administrator tokens or keys are stored in source files.
 
-Cloudflare frontend deployment/environment configuration has not been changed by this migration. The existing remote frontend will need the new build and five Firebase/store variables before it uses this database.
+The Cloudflare Worker now has the Firebase/store build variables and an active GitHub connection for `main`. On 27 October 2026, commit `04b5a1e` automatically built and deployed as Worker version `d15340f2-0a8d-45ff-a9c5-38a6c831662d`. The public site serves the corrected `index-BaSU8SYq.js` bundle. Browser checks confirmed the stock directory reads the hosted categories/departments, Locations and History render, and the Google sign-in dialog opens. No stock groups or locations have been seeded, so those views are intentionally empty. Actual Google sign-in on the production hostname still needs verification.
 
 ## Remaining release checks
 
 - Verify a second real staff account can claim an invitation and loses editing access after revocation (covered in emulator tests, not yet tested with another person).
-- Set all five Firebase/store variables in the Cloudflare build, authorise its actual hostname, deploy this frontend and verify the deployed headers.
+- Verify Google sign-in on the production hostname and the deployed headers.
 - Trial with invited staff on a physical tablet/PC; confirm real storage locations.
 - Independently verify a browser backup download, perform hosted recovery and retain a successful frontend release for rollback. The atomic admin recovery tool currently supports up to 450 documents; monitor export size.
 
