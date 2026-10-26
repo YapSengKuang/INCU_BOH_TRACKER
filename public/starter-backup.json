@@ -1,0 +1,2389 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-10-26T00:00:00.000Z",
+  "snapshot": {
+    "locations": [
+      {
+        "id": "shoe-drawers",
+        "area": "Drawers At Shoe Section",
+        "kind": "Area",
+        "code": "SHOE-DRAWERS",
+        "parentId": null
+      },
+      {
+        "id": "shoe-cabinet-1",
+        "area": "Drawers At Shoe Section",
+        "kind": "Cabinet",
+        "code": "SHOE-CABINET-1",
+        "parentId": "shoe-drawers"
+      },
+      {
+        "id": "shoe-cabinet-2",
+        "area": "Drawers At Shoe Section",
+        "kind": "Cabinet",
+        "code": "SHOE-CABINET-2",
+        "parentId": "shoe-drawers"
+      },
+      {
+        "id": "shoe-cabinet-3",
+        "area": "Drawers At Shoe Section",
+        "kind": "Cabinet",
+        "code": "SHOE-CABINET-3",
+        "parentId": "shoe-drawers"
+      },
+      {
+        "id": "shoe-cabinet-4",
+        "area": "Drawers At Shoe Section",
+        "kind": "Cabinet",
+        "code": "SHOE-CABINET-4",
+        "parentId": "shoe-drawers"
+      },
+      {
+        "id": "pos",
+        "area": "POS Cabinets",
+        "kind": "Area",
+        "code": "POS",
+        "parentId": null
+      },
+      {
+        "id": "pos-cabinet-1",
+        "area": "POS Cabinets",
+        "kind": "Cabinet",
+        "code": "POS-CABINET-1",
+        "parentId": "pos"
+      },
+      {
+        "id": "pos-cabinet-2",
+        "area": "POS Cabinets",
+        "kind": "Cabinet",
+        "code": "POS-CABINET-2",
+        "parentId": "pos"
+      },
+      {
+        "id": "pos-cabinet-3",
+        "area": "POS Cabinets",
+        "kind": "Cabinet",
+        "code": "POS-CABINET-3",
+        "parentId": "pos"
+      },
+      {
+        "id": "pos-cabinet-4",
+        "area": "POS Cabinets",
+        "kind": "Cabinet",
+        "code": "POS-CABINET-4",
+        "parentId": "pos"
+      },
+      {
+        "id": "mens-fits",
+        "area": "Men's Fits",
+        "kind": "Area",
+        "code": "MENS-FITS",
+        "parentId": null
+      },
+      {
+        "id": "mens-fitting-room-1",
+        "area": "Men's Fits",
+        "kind": "Room",
+        "code": "MENS-FITTING-ROOM-1",
+        "parentId": "mens-fits"
+      },
+      {
+        "id": "mens-fitting-room-2",
+        "area": "Men's Fits",
+        "kind": "Room",
+        "code": "MENS-FITTING-ROOM-2",
+        "parentId": "mens-fits"
+      },
+      {
+        "id": "birkenstock-room",
+        "area": "Birkenstock Room",
+        "kind": "Room",
+        "code": "BIRKENSTOCK-ROOM",
+        "parentId": null
+      },
+      {
+        "id": "asics-wall",
+        "area": "Asics Wall",
+        "kind": "Wall",
+        "code": "ASICS-WALL",
+        "parentId": null
+      },
+      {
+        "id": "womens-knitwear-wall",
+        "area": "Women's Knitwear Wall",
+        "kind": "Wall",
+        "code": "WOMENS-KNITWEAR-WALL",
+        "parentId": null
+      },
+      {
+        "id": "womens-denim-wall",
+        "area": "Women's Denim Wall",
+        "kind": "Wall",
+        "code": "WOMENS-DENIM-WALL",
+        "parentId": null
+      },
+      {
+        "id": "womens-bottoms-rack",
+        "area": "Women's Bottoms Rack",
+        "kind": "Rack",
+        "code": "WOMENS-BOTTOMS-RACK",
+        "parentId": null
+      },
+      {
+        "id": "womens-jacket-rack",
+        "area": "Women's Jacket Rack",
+        "kind": "Rack",
+        "code": "WOMENS-JACKET-RACK",
+        "parentId": null
+      },
+      {
+        "id": "womens-dress-rack",
+        "area": "Women's Dress Rack",
+        "kind": "Rack",
+        "code": "WOMENS-DRESS-RACK",
+        "parentId": null
+      },
+      {
+        "id": "womens-tops-rack",
+        "area": "Women's Tops Rack",
+        "kind": "Rack",
+        "code": "WOMENS-TOPS-RACK",
+        "parentId": null
+      },
+      {
+        "id": "online-desk-tubs",
+        "area": "Tub's Opposite Online Desk",
+        "kind": "Tub",
+        "code": "ONLINE-DESK-TUBS",
+        "parentId": null
+      },
+      {
+        "id": "incu-womens-bottom-wall",
+        "area": "Incu Collection Women's Bottom Wall",
+        "kind": "Wall",
+        "code": "INCU-WOMENS-BOTTOM-WALL",
+        "parentId": null
+      },
+      {
+        "id": "incu-womens-rack",
+        "area": "Incu Collection Women's Rack",
+        "kind": "Rack",
+        "code": "INCU-WOMENS-RACK",
+        "parentId": null
+      },
+      {
+        "id": "online-desk-white-cabinet",
+        "area": "White Cabinet next to Online Desk",
+        "kind": "Cabinet",
+        "code": "ONLINE-DESK-WHITE-CABINET",
+        "parentId": null
+      },
+      {
+        "id": "mens-tops-rack",
+        "area": "Men's Tops Rack",
+        "kind": "Rack",
+        "code": "MENS-TOPS-RACK",
+        "parentId": null
+      },
+      {
+        "id": "mens-jacket-rack",
+        "area": "Men's Jacket Rack",
+        "kind": "Rack",
+        "code": "MENS-JACKET-RACK",
+        "parentId": null
+      },
+      {
+        "id": "mens-denim-wall",
+        "area": "Men's Denim wall",
+        "kind": "Wall",
+        "code": "MENS-DENIM-WALL",
+        "parentId": null
+      },
+      {
+        "id": "mens-pant-rack",
+        "area": "Men's Pant Rack",
+        "kind": "Rack",
+        "code": "MENS-PANT-RACK",
+        "parentId": null
+      },
+      {
+        "id": "mens-knitwear-wall",
+        "area": "Men's Knitwear Wall",
+        "kind": "Wall",
+        "code": "MENS-KNITWEAR-WALL",
+        "parentId": null
+      },
+      {
+        "id": "break-room-white-cabinet",
+        "area": "White Cabinet Near Break Room",
+        "kind": "Cabinet",
+        "code": "BREAK-ROOM-WHITE-CABINET",
+        "parentId": null
+      },
+      {
+        "id": "tubs-below-incu-womens-rack",
+        "area": "Incu Collection Women's Rack",
+        "kind": "Tub",
+        "code": "TUBS-BELOW-INCU-WOMENS-RACK",
+        "parentId": "incu-womens-rack"
+      }
+    ],
+    "groups": [
+      {
+        "id": "incu-womens-tops",
+        "brandId": "incu-collection",
+        "categoryId": "tops",
+        "departmentId": "women"
+      },
+      {
+        "id": "incu-mens-tshirts",
+        "brandId": "incu-collection",
+        "categoryId": "t-shirts",
+        "departmentId": "men"
+      },
+      {
+        "id": "ader-hats",
+        "brandId": "ader-error",
+        "categoryId": "hats",
+        "departmentId": "unspecified"
+      },
+      {
+        "id": "ader-jackets",
+        "brandId": "ader-error",
+        "categoryId": "jackets",
+        "departmentId": "unspecified"
+      },
+      {
+        "id": "patagonia-jackets",
+        "brandId": "patagonia",
+        "categoryId": "jackets",
+        "departmentId": "unspecified"
+      },
+      {
+        "id": "patagonia-bags",
+        "brandId": "patagonia",
+        "categoryId": "bags",
+        "departmentId": "unspecified"
+      }
+    ],
+    "placements": [
+      {
+        "groupId": "incu-womens-tops",
+        "locationId": "tubs-below-incu-womens-rack"
+      },
+      {
+        "groupId": "incu-mens-tshirts",
+        "locationId": "tubs-below-incu-womens-rack"
+      },
+      {
+        "groupId": "ader-hats",
+        "locationId": "shoe-drawers"
+      },
+      {
+        "groupId": "ader-jackets",
+        "locationId": "mens-fits"
+      },
+      {
+        "groupId": "patagonia-jackets",
+        "locationId": "mens-fits"
+      },
+      {
+        "groupId": "patagonia-bags",
+        "locationId": "mens-fits"
+      }
+    ],
+    "store": {
+      "id": "sample-store",
+      "name": "Incu \u00b7 Sample store",
+      "timezone": "Australia/Melbourne",
+      "revision": 0
+    },
+    "brands": [
+      {
+        "id": "19-69",
+        "name": "19-69",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "a-emery",
+        "name": "A.Emery",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "a-p-c",
+        "name": "A.P.C.",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "acne-studios",
+        "name": "Acne Studios",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "ader-error",
+        "name": "ADER Error",
+        "aliases": [],
+        "active": true,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "adidas",
+        "name": "adidas",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "adidas-x-wales-bonner",
+        "name": "adidas x Wales Bonner",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "agolde",
+        "name": "Agolde",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "alexander-wang",
+        "name": "Alexander Wang",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "ami-paris",
+        "name": "AMI PARIS",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "and-wander",
+        "name": "And Wander",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "andersson-bell",
+        "name": "Andersson Bell",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "anna-quan",
+        "name": "Anna Quan",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "anni-lu",
+        "name": "Anni Lu",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "arcteryx",
+        "name": "Arc'teryx",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "arcs",
+        "name": "ARCS",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "asics",
+        "name": "Asics",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "auralee",
+        "name": "Auralee",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "baina",
+        "name": "Baina",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "bao-bao",
+        "name": "Bao Bao",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "baum-und-pferdgarten",
+        "name": "Baum und Pferdgarten",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "beams-japan",
+        "name": "Beams Japan",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "beams-plus",
+        "name": "Beams Plus",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "birkenstock",
+        "name": "Birkenstock",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "birkenstock-1774",
+        "name": "Birkenstock 1774",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "blanca",
+        "name": "Blanca",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "bleue-burnham",
+        "name": "Bleue Burnham",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "blue-elephant",
+        "name": "Blue Elephant",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "cameron-studio",
+        "name": "Cameron Studio",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "carhartt-wip",
+        "name": "Carhartt WIP",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "carter-young",
+        "name": "Carter Young",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "cecilie-bahnsen",
+        "name": "Cecilie Bahnsen",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "christopher-esber",
+        "name": "Christopher Esber",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "ciao-lucia",
+        "name": "Ciao Lucia",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "citizens-of-humanity",
+        "name": "Citizens of Humanity",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "clarks",
+        "name": "Clarks",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "commas",
+        "name": "COMMAS",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "comme-des-garcons-homme",
+        "name": "Comme des Gar\u00e7ons Homme",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "comme-des-garcons-parfums",
+        "name": "Comme des Gar\u00e7ons Parfums",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "comme-des-garcons-play",
+        "name": "Comme des Gar\u00e7ons Play",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "comme-des-garcons-wallets",
+        "name": "Comme des Gar\u00e7ons Wallet",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "comoli",
+        "name": "COMOLI",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "completedworks",
+        "name": "Completedworks",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "crystal-haze",
+        "name": "Crystal Haze",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "damson-madder",
+        "name": "Damson Madder",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "deiji-studios",
+        "name": "Deiji Studios",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "diesel",
+        "name": "Diesel",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "dries-van-noten",
+        "name": "Dries Van Noten",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "dunst",
+        "name": "DUNST",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "esse-studios",
+        "name": "ESSE Studios",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "fear-of-god-essentials",
+        "name": "Fear of God: Essentials",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "flore-flore",
+        "name": "FLORE FLORE",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "ganni",
+        "name": "Ganni",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "gimaguas",
+        "name": "Gimaguas",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "gottlob",
+        "name": "Gottlob",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "gramicci",
+        "name": "Gramicci",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "graphpaper",
+        "name": "Graphpaper",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "heavenly-jelly",
+        "name": "Heavenly Jelly",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "hommegirls",
+        "name": "HommeGirls",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "howlin",
+        "name": "Howlin'",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "incu-1976",
+        "name": "Incu 1976",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "incu-collection",
+        "name": "Incu Collection",
+        "aliases": [],
+        "active": true,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "jacquemus",
+        "name": "Jacquemus",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "jacques-soloviere",
+        "name": "Jacques Solovi\u00e8re",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "junya-watanabe",
+        "name": "Junya Watanabe",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "justine-clenquet",
+        "name": "Justine Clenquet",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "kapital",
+        "name": "Kapital",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "kaptain-sunshine",
+        "name": "KAPTAIN SUNSHINE",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "kardo",
+        "name": "Kardo",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "larriet",
+        "name": "Larriet",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "lemaire",
+        "name": "Lemaire",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "levis-vintage-clothing",
+        "name": "Levi's Vintage Clothing",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "low-classic",
+        "name": "Low Classic",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "maison-balzac",
+        "name": "Maison Balzac",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "maison-kitsune",
+        "name": "Maison Kitsune",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "maison-mihara-yasuhiro",
+        "name": "Maison MIHARA YASUHIRO",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "maple",
+        "name": "Maple",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "margesherwood",
+        "name": "MARGESHERWOOD",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "marine-serre",
+        "name": "Marine Serre",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "mfpen",
+        "name": "mfpen",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "miaou",
+        "name": "MIAOU",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "miista",
+        "name": "Miista",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "mikia",
+        "name": "Mikia",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "miu-miu",
+        "name": "Miu Miu",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "mizuno",
+        "name": "Mizuno",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "mm6",
+        "name": "MM6",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "molebo",
+        "name": "Molebo",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "monokel",
+        "name": "Monokel",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "museum-of-peace-and-quiet",
+        "name": "Museum of Peace and Quiet",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "needles",
+        "name": "Needles",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "new-balance",
+        "name": "New Balance",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "nike",
+        "name": "Nike",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "nike-acg#",
+        "name": "Nike ACG",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "nn07",
+        "name": "NN07",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "nonfiction",
+        "name": "NONFICTION",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "norda",
+        "name": "norda",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "norse-projects",
+        "name": "Norse Projects",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "numbering",
+        "name": "Numbering",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "on-running",
+        "name": "On Running",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "orslow",
+        "name": "orSlow",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "osoi",
+        "name": "OSOI",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "our-legacy",
+        "name": "Our Legacy",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "paloma-wool",
+        "name": "Paloma Wool",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "pam",
+        "name": "PAM",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "paraboot",
+        "name": "Paraboot",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "patagonia",
+        "name": "Patagonia",
+        "aliases": [],
+        "active": true,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "peachy-den",
+        "name": "Peachy Den",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "perdrisat",
+        "name": "PERDRIS\u00c2T",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "port-tanger",
+        "name": "Port Tanger",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "porter-yoshida-co",
+        "name": "Porter-Yoshida & Co",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "prada",
+        "name": "Prada",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "provider-store",
+        "name": "Provider Store",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "rag-bone",
+        "name": "Rag & Bone",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "rockfish-weatherwear",
+        "name": "Rockfish Weatherwear",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "salomon",
+        "name": "Salomon",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "samsoe-samsoe",
+        "name": "Sams\u00f8e Sams\u00f8e",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "saturdays-nyc",
+        "name": "Saturdays NYC",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "service-works",
+        "name": "Service Works",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "simone-rocha",
+        "name": "Simone Rocha",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "solovair",
+        "name": "Solovair",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "song-for-the-mute",
+        "name": "Song for the Mute",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "sophie-bille-brahe",
+        "name": "Sophie Bille Brahe",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "south2-west8",
+        "name": "South2 West8",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "sporty-and-rich",
+        "name": "Sporty & Rich",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "st-agni",
+        "name": "St. Agni",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "state-of-escape",
+        "name": "State of Escape",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "still-by-hand",
+        "name": "Still By Hand",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "stone-island",
+        "name": "Stone Island",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "story-mfg",
+        "name": "Story MFG",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "studio-nicholson",
+        "name": "Studio Nicholson",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "the-north-face",
+        "name": "The North Face",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "toga-pulla",
+        "name": "Toga Pulla",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "tom-wood",
+        "name": "Tom Wood",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "toteme",
+        "name": "Toteme",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "universal-works",
+        "name": "Universal Works",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "veilance#",
+        "name": "VEILANCE",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men",
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men",
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "vinnys",
+        "name": "Vinny's",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "wynn-hamlyn",
+        "name": "Wynn Hamlyn",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "yaeca",
+        "name": "Yaeca",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "men"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-men"
+        ],
+        "retrievedOn": "2026-10-26"
+      },
+      {
+        "id": "yvmin",
+        "name": "YVMIN",
+        "aliases": [],
+        "active": false,
+        "departments": [
+          "women"
+        ],
+        "sourcePages": [
+          "https://www.incu.com/pages/brands-women"
+        ],
+        "retrievedOn": "2026-10-26"
+      }
+    ],
+    "categories": [
+      {
+        "id": "knitwear",
+        "name": "Knitwear",
+        "active": true
+      },
+      {
+        "id": "denim",
+        "name": "Denim",
+        "active": true
+      },
+      {
+        "id": "footwear",
+        "name": "Footwear",
+        "active": true
+      },
+      {
+        "id": "t-shirts",
+        "name": "T-shirts",
+        "active": true
+      },
+      {
+        "id": "outerwear",
+        "name": "Outerwear",
+        "active": true
+      },
+      {
+        "id": "accessories",
+        "name": "Accessories",
+        "active": true
+      },
+      {
+        "id": "dresses",
+        "name": "Dresses",
+        "active": true
+      },
+      {
+        "id": "trousers",
+        "name": "Trousers",
+        "active": true
+      },
+      {
+        "id": "tops",
+        "name": "Tops",
+        "active": true
+      },
+      {
+        "id": "jackets",
+        "name": "Jackets",
+        "active": true
+      },
+      {
+        "id": "hats",
+        "name": "Hats",
+        "active": true
+      },
+      {
+        "id": "bags",
+        "name": "Bags",
+        "active": true
+      }
+    ],
+    "departments": [
+      {
+        "id": "women",
+        "name": "Women",
+        "active": true
+      },
+      {
+        "id": "men",
+        "name": "Men",
+        "active": true
+      },
+      {
+        "id": "unisex",
+        "name": "Unisex",
+        "active": true
+      },
+      {
+        "id": "unspecified",
+        "name": "Unspecified",
+        "active": true
+      }
+    ],
+    "movements": [
+      {
+        "id": "starter-placement-1",
+        "groupId": "incu-womens-tops",
+        "kind": "place",
+        "groupLabel": "Incu Collection \u00b7 Tops \u00b7 Women",
+        "from": null,
+        "to": "tubs-below-incu-womens-rack",
+        "fromLabel": null,
+        "toLabel": "Incu Collection Women's Rack \u2192 Rack INCU-WOMENS-RACK \u2192 Tub TUBS-BELOW-INCU-WOMENS-RACK",
+        "reason": "Starter data from store notes; exact unit and unspecified departments need confirmation.",
+        "at": "2026-10-26T00:00:00.000Z"
+      },
+      {
+        "id": "starter-placement-2",
+        "groupId": "incu-mens-tshirts",
+        "kind": "place",
+        "groupLabel": "Incu Collection \u00b7 T-shirts \u00b7 Men",
+        "from": null,
+        "to": "tubs-below-incu-womens-rack",
+        "fromLabel": null,
+        "toLabel": "Incu Collection Women's Rack \u2192 Rack INCU-WOMENS-RACK \u2192 Tub TUBS-BELOW-INCU-WOMENS-RACK",
+        "reason": "Starter data from store notes; exact unit and unspecified departments need confirmation.",
+        "at": "2026-10-26T00:00:00.000Z"
+      },
+      {
+        "id": "starter-placement-3",
+        "groupId": "ader-hats",
+        "kind": "place",
+        "groupLabel": "ADER Error \u00b7 Hats \u00b7 Unspecified",
+        "from": null,
+        "to": "shoe-drawers",
+        "fromLabel": null,
+        "toLabel": "Drawers At Shoe Section \u2192 Area SHOE-DRAWERS",
+        "reason": "Starter data from store notes; exact unit and unspecified departments need confirmation.",
+        "at": "2026-10-26T00:00:00.000Z"
+      },
+      {
+        "id": "starter-placement-4",
+        "groupId": "ader-jackets",
+        "kind": "place",
+        "groupLabel": "ADER Error \u00b7 Jackets \u00b7 Unspecified",
+        "from": null,
+        "to": "mens-fits",
+        "fromLabel": null,
+        "toLabel": "Men's Fits \u2192 Area MENS-FITS",
+        "reason": "Starter data from store notes; exact unit and unspecified departments need confirmation.",
+        "at": "2026-10-26T00:00:00.000Z"
+      },
+      {
+        "id": "starter-placement-5",
+        "groupId": "patagonia-jackets",
+        "kind": "place",
+        "groupLabel": "Patagonia \u00b7 Jackets \u00b7 Unspecified",
+        "from": null,
+        "to": "mens-fits",
+        "fromLabel": null,
+        "toLabel": "Men's Fits \u2192 Area MENS-FITS",
+        "reason": "Starter data from store notes; exact unit and unspecified departments need confirmation.",
+        "at": "2026-10-26T00:00:00.000Z"
+      },
+      {
+        "id": "starter-placement-6",
+        "groupId": "patagonia-bags",
+        "kind": "place",
+        "groupLabel": "Patagonia \u00b7 Bags \u00b7 Unspecified",
+        "from": null,
+        "to": "mens-fits",
+        "fromLabel": null,
+        "toLabel": "Men's Fits \u2192 Area MENS-FITS",
+        "reason": "Starter data from store notes; exact unit and unspecified departments need confirmation.",
+        "at": "2026-10-26T00:00:00.000Z"
+      }
+    ]
+  },
+  "staff": [
+    {
+      "id": "sample-owner",
+      "email": "owner@example.invalid",
+      "role": "owner",
+      "status": "active"
+    }
+  ],
+  "privateNotes": {}
+}

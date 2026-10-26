@@ -1,8 +1,10 @@
 import { describe,it,expect } from 'vitest'
-import { applyDemo,newDemoData } from '../src/lib/demo'
+import { applyDemo,newDemoData as defaultDemoData } from '../src/lib/demo'
 import type { DemoData } from '../src/lib/demo'
 import { ConflictError,readBackup,searchGroups } from '../src/lib/model'
 import type { Command,Request } from '../src/lib/model'
+import { createSample } from './legacy-sample'
+const newDemoData = (): DemoData => ({ ...defaultDemoData(), snapshot: createSample() })
 const req=(d:DemoData,c:Command):Request=>({...c,requestId:crypto.randomUUID(),expectedRevision:d.snapshot.store.revision})
 const move=(kind:'move'|'also'|'correct'|'remove'|'place',from:string|null,to:string|null,groupId='g1',reason=''):Command=>({action:'movement',payload:{id:crypto.randomUUID(),groupId,kind,from,to,reason,privateNote:'Private note'}})
 describe('isolated sample workspace',()=>{

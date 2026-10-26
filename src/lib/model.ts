@@ -1,5 +1,5 @@
 export type Role = 'guest' | 'editor' | 'owner'
-export type Kind = 'Cabinet' | 'Rack' | 'Shelf' | 'Drawer'
+export type Kind = 'Cabinet' | 'Rack' | 'Shelf' | 'Drawer' | 'Room' | 'Wall' | 'Tub' | 'Area'
 export type Taxon = { id: string; name: string; active: boolean }
 export type Brand = Taxon & { aliases: string[]; departments: string[]; sourcePages: string[]; retrievedOn: string | null }
 export type Location = { id: string; area: string; code: string; kind: Kind; parentId: string | null }
@@ -54,7 +54,7 @@ export function readBackup(input: unknown): Backup {
   for (const rows of [s.brands, s.categories, s.departments]) for (const x of rows) if (typeof x.name !== 'string' || typeof x.active !== 'boolean') throw new Error('Invalid brand or category data.')
   if (s.brands.some(x => !Array.isArray(x.aliases) || !Array.isArray(x.sourcePages) || !Array.isArray(x.departments))) throw new Error('Invalid brand provenance.')
   for (const g of s.groups) if (!s.brands.some(x => x.id === g.brandId) || !s.categories.some(x => x.id === g.categoryId) || !s.departments.some(x => x.id === g.departmentId)) throw new Error('Backup contains a stock group with missing options.')
-  for (const l of s.locations) if (!['Cabinet','Rack','Shelf','Drawer'].includes(l.kind) || !l.area || !l.code || (l.parentId && !s.locations.some(p => p.id === l.parentId && !p.parentId && p.area === l.area))) throw new Error('Backup contains an invalid location.')
+  for (const l of s.locations) if (!['Cabinet','Rack','Shelf','Drawer','Room','Wall','Tub','Area'].includes(l.kind) || !l.area || !l.code || (l.parentId && !s.locations.some(p => p.id === l.parentId && !p.parentId && p.area === l.area))) throw new Error('Backup contains an invalid location.')
   if (new Set(s.locations.map(l => l.code.toLowerCase())).size !== s.locations.length) throw new Error('Backup contains duplicate location codes.')
   if (new Set(s.groups.map(g => `${g.brandId}|${g.categoryId}|${g.departmentId}`)).size !== s.groups.length) throw new Error('Backup contains duplicate stock groups.')
   for (const p of s.placements) if (!s.groups.some(g => g.id === p.groupId) || !s.locations.some(l => l.id === p.locationId)) throw new Error('Backup contains a broken stock location.')

@@ -33,7 +33,7 @@ create table public.locations (
   store_id uuid not null references public.stores(id), id text not null,
   area text not null check (length(trim(area)) between 1 and 160),
   code text not null check (length(trim(code)) between 1 and 160),
-  kind text not null check (kind in ('Cabinet','Rack','Shelf','Drawer')),
+  kind text not null check (kind in ('Cabinet','Rack','Shelf','Drawer','Room','Wall','Tub','Area')),
   "parentId" text, primary key (store_id,id),
   foreign key (store_id,"parentId") references public.locations(store_id,id),
   check ("parentId" is null or "parentId" <> id)

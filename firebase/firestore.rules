@@ -1,0 +1,269 @@
+rules_version = '2';
+// BOH: directory and history are intentionally public. Staff identities, notes,
+// invitations and retry receipts are private. Verified Google identities receive
+// editor access only by claiming an owner invitation; owners are admin-bootstrapped.
+// A store revision serialises all client commands. Receipts and every affected
+// record must validate together using getAfter; unmatched paths are denied.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signed() { return request.auth != null && request.auth.token.email_verified == true; }
+    function root(s) { return /databases/$(database)/documents/stores/$(s); }
+    function path(s,t,id) { return /databases/$(database)/documents/stores/$(s)/$(t)/$(id); }
+    function id(v) { return v is string && v.matches('^[A-Za-z0-9_#-]{1,160}$'); }
+    function text(v) { return v is string && v.size() >= 1 && v.size() <= 160 && v == v.trim(); }
+    function key(v) { return v.lower().replace('%','%25').replace('/','%2f').replace('[.]','%2e'); }
+    function email(v) { return v is string && v.size() <= 254 && v == v.lower().trim() && v.matches('^[^ /@]+@[^ /@]+[.][^ /@]+$'); }
+    function nullableId(v) { return v == null || id(v); }
+    function payload(a,p) {
+      return (a == 'group' && p.keys().hasOnly(['id','brandId','categoryId','departmentId']) && id(p.id) && id(p.brandId) && id(p.categoryId) && id(p.departmentId))
+        || (a == 'location' && p.keys().hasOnly(['id','area','code','kind','parentId']) && id(p.id) && text(p.area) && text(p.code) && p.kind in ['Cabinet','Rack','Shelf','Drawer','Room','Wall','Tub','Area'] && nullableId(p.parentId))
+        || (a == 'deleteLocation' && p.keys().hasOnly(['id']) && id(p.id))
+        || (a == 'taxon' && p.keys().hasOnly(['table','id','name','active']) && p.table in ['brands','categories','departments'] && id(p.id) && text(p.name) && p.active is bool)
+        || (a == 'movement' && p.keys().hasOnly(['id','groupId','kind','from','to','reason','privateNote','groupLabel']) && id(p.id) && id(p.groupId) && nullableId(p.from) && nullableId(p.to)
+          && p.kind in ['place','also','move','correct','remove'] && p.reason is string && p.reason.size() <= 160 && p.reason == p.reason.trim()
+          && p.privateNote is string && p.privateNote.size() <= 2000 && p.groupLabel is string && p.groupLabel.size() <= 486)
+        || (a == 'invite' && p.keys().hasOnly(['id','email']) && id(p.id) && email(p.email))
+        || (a == 'revoke' && p.keys().hasOnly(['id','targetType','targetKey']) && p.id is string && p.id.size() <= 280
+          && ((p.targetType == 'members' && id(p.targetKey)) || (p.targetType == 'invitations' && email(p.targetKey))))
+        || (a == 'claim' && p.keys().hasOnly(['id','email']) && id(p.id) && email(p.email));
+    }
+    function editor(s) { return signed() && get(path(s,'members',request.auth.uid)).data.role in ['owner','editor']; }
+    function owner(s) { return signed() && get(path(s,'members',request.auth.uid)).data.role == 'owner'; }
+    function cmd(s) { return getAfter(path(s,'commands',getAfter(root(s)).data.lastRequest)).data; }
+    function context(s,c) { return signed() && c.actor == request.auth.uid && c.at == request.time && c.id == getAfter(root(s)).data.lastRequest; }
+    function claimAllowed(s,c) {
+      return signed() && c.action == 'claim' && c.payload.id == request.auth.uid
+        && c.payload.email == request.auth.token.email.lower()
+        && exists(path(s,'invitations',c.payload.email))
+        && !exists(path(s,'members',request.auth.uid)) && !exists(path(s,'accessEmails',c.payload.email));
+    }
+    function header(s,c,rid) {
+      return c.keys().hasOnly(['id','actor','at','expectedRevision','revision','action','payload','signature'])
+        && c.id == rid && id(rid) && c.actor == request.auth.uid && c.at == request.time
+        && c.expectedRevision is int && c.expectedRevision >= 0 && c.revision is int && c.revision <= 9007199254740991 && c.revision == c.expectedRevision + 1
+        && get(root(s)).data.revision == c.expectedRevision
+        && getAfter(root(s)).data.revision == c.revision && getAfter(root(s)).data.lastRequest == rid
+        && c.signature is string && c.signature.size() <= 8000 && c.payload is map && c.action in ['group','location','deleteLocation','taxon','movement','invite','revoke','claim']
+        && payload(c.action,c.payload)
+        && ((c.action in ['group','location','deleteLocation','taxon','movement'] && editor(s))
+          || (c.action in ['invite','revoke'] && owner(s)) || claimAllowed(s,c));
+    }
+    // Receipt creation verifies the command's required results. Every changed
+    // document is independently validated below, even for a hostile web client.
+      function groupLabel(s,gid) {
+        let g = get(path(s,'groups',gid)).data;
+        return get(path(s,'brands',g.brandId)).data.name+' · '+get(path(s,'categories',g.categoryId)).data.name+' · '+get(path(s,'departments',g.departmentId)).data.name;
+      }
+    function outcome(s,c) {
+      return (c.action == 'group' && getAfter(path(s,'groups',c.payload.id)).data.lastRequest == c.id)
+        || (c.action == 'location' && getAfter(path(s,'locations',c.payload.id)).data.lastRequest == c.id)
+        || (c.action == 'deleteLocation' && exists(path(s,'locations',c.payload.id)) && !existsAfter(path(s,'locations',c.payload.id)))
+        || (c.action == 'taxon' && c.payload.table in ['brands','categories','departments'] && getAfter(path(s,c.payload.table,c.payload.id)).data.lastRequest == c.id)
+        || (c.action == 'movement' && getAfter(path(s,'groups',c.payload.groupId)).data.lastRequest == c.id && getAfter(path(s,'movements',c.payload.id)).data.lastRequest == c.id && c.payload.groupLabel == groupLabel(s,c.payload.groupId))
+        || (c.action == 'invite' && getAfter(path(s,'invitations',c.payload.email)).data.lastRequest == c.id)
+        || (c.action == 'revoke' && c.payload.targetType in ['members','invitations'] && exists(path(s,c.payload.targetType,c.payload.targetKey)) && !existsAfter(path(s,c.payload.targetType,c.payload.targetKey)))
+        || (c.action == 'claim' && getAfter(path(s,'members',request.auth.uid)).data.lastRequest == c.id && !existsAfter(path(s,'invitations',c.payload.email)));
+    }
+    match /stores/{s} {
+      allow get: if true;
+      allow list, create, delete: if false;
+      allow update: if signed()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['revision','lastRequest'])
+        && request.resource.data.revision == resource.data.revision + 1
+        && id(request.resource.data.lastRequest)
+        && !exists(path(s,'commands',request.resource.data.lastRequest))
+        && context(s,cmd(s)) && cmd(s).expectedRevision == resource.data.revision;
+
+      match /commands/{rid} {
+        allow get: if signed() && (!exists(path(s,'commands',rid)) || resource.data.actor == request.auth.uid || owner(s));
+        allow list: if owner(s);
+        allow create: if signed() && header(s,request.resource.data,rid) && outcome(s,request.resource.data);
+        allow update, delete: if false;
+      }
+      match /members/{uid} {
+        allow get: if signed() && (request.auth.uid == uid || owner(s));
+        allow list: if owner(s);
+        allow create: if context(s,cmd(s)) && claimAllowed(s,cmd(s)) && uid == request.auth.uid
+          && request.resource.data == {'uid':uid,'email':cmd(s).payload.email,'role':'editor','lastRequest':cmd(s).id}
+          && getAfter(path(s,'accessEmails',cmd(s).payload.email)).data.uid == uid
+          && !existsAfter(path(s,'invitations',cmd(s).payload.email));
+        allow update: if false;
+        allow delete: if owner(s) && context(s,cmd(s)) && cmd(s).action == 'revoke'
+          && cmd(s).payload.targetType == 'members' && cmd(s).payload.targetKey == uid
+          && resource.data.role == 'editor' && !existsAfter(path(s,'accessEmails',resource.data.email));
+      }
+      match /accessEmails/{em} {
+        allow get: if signed() && (request.auth.token.email.lower() == em || owner(s));
+        allow list: if owner(s);
+        allow create: if context(s,cmd(s)) && claimAllowed(s,cmd(s)) && em == cmd(s).payload.email
+          && request.resource.data == {'uid':request.auth.uid,'role':'editor','lastRequest':cmd(s).id}
+          && getAfter(path(s,'members',request.auth.uid)).data.lastRequest == cmd(s).id;
+        allow update: if false;
+        allow delete: if owner(s) && context(s,cmd(s)) && cmd(s).action == 'revoke'
+          && cmd(s).payload.targetType == 'members' && cmd(s).payload.targetKey == resource.data.uid
+          && resource.data.role == 'editor' && !existsAfter(path(s,'members',resource.data.uid));
+      }
+      match /invitations/{em} {
+        allow get: if signed() && (request.auth.token.email.lower() == em || owner(s));
+        allow list: if owner(s);
+        allow create: if owner(s) && context(s,cmd(s)) && cmd(s).action == 'invite'
+          && email(em) && cmd(s).payload.email == em && !exists(path(s,'accessEmails',em))
+          && request.resource.data == {'email':em,'role':'editor','invitedBy':request.auth.uid,'at':request.time,'lastRequest':cmd(s).id};
+        allow update: if false;
+        allow delete: if context(s,cmd(s)) && ((owner(s) && cmd(s).action == 'revoke' && cmd(s).payload.targetType == 'invitations' && cmd(s).payload.targetKey == em)
+          || (claimAllowed(s,cmd(s)) && em == cmd(s).payload.email && getAfter(path(s,'members',request.auth.uid)).data.lastRequest == cmd(s).id));
+      }
+      match /{table}/{eid} {
+        allow read: if table in ['brands','categories','departments'];
+        allow create, update: if table in ['brands','categories','departments'] && editor(s)
+          && context(s,cmd(s)) && cmd(s).action == 'taxon' && cmd(s).payload.table == table && cmd(s).payload.id == eid
+          && validTaxon(s,table,eid,cmd(s));
+        allow delete: if false;
+      }
+      function validTaxon(s,t,eid,c) {
+        let d = request.resource.data;
+        let newKey = t+'|'+key(d.name);
+        return id(eid) && text(d.name) && d.id == eid && d.active is bool && d.lastRequest == c.id
+          && d.name == c.payload.name && d.active == c.payload.active
+          && (t == 'brands' ? d.keys().hasOnly(['id','name','active','aliases','departments','sourcePages','retrievedOn','lastRequest']) : d.keys().hasOnly(['id','name','active','lastRequest']))
+          && (resource == null ? (t != 'brands' || (d.aliases == [] && d.departments == [] && d.sourcePages == [] && d.retrievedOn == null))
+            : d.diff(resource.data).affectedKeys().hasOnly(['name','active','lastRequest']))
+          && (!exists(path(s,'uniqueNames',newKey)) || get(path(s,'uniqueNames',newKey)).data.entityId == eid)
+          && getAfter(path(s,'uniqueNames',newKey)).data.lastRequest == c.id
+          && (resource == null || key(resource.data.name) == key(d.name) || !existsAfter(path(s,'uniqueNames',t+'|'+key(resource.data.name))));
+      }
+      match /uniqueNames/{nk} {
+        allow read: if true;
+        allow create, update: if editor(s) && context(s,cmd(s)) && cmd(s).action == 'taxon'
+          && cmd(s).payload.table in ['brands','categories','departments'] && nk == cmd(s).payload.table+'|'+key(cmd(s).payload.name)
+          && request.resource.data == {'table':cmd(s).payload.table,'entityId':cmd(s).payload.id,'lastRequest':cmd(s).id}
+          && (resource == null || resource.data.entityId == cmd(s).payload.id)
+          && getAfter(path(s,cmd(s).payload.table,cmd(s).payload.id)).data.lastRequest == cmd(s).id;
+        allow delete: if editor(s) && context(s,cmd(s)) && cmd(s).action == 'taxon'
+          && cmd(s).payload.id == resource.data.entityId && cmd(s).payload.table == resource.data.table
+          && nk != cmd(s).payload.table+'|'+key(cmd(s).payload.name)
+          && getAfter(path(s,cmd(s).payload.table,cmd(s).payload.id)).data.lastRequest == cmd(s).id;
+      }
+      match /groups/{gid} {
+        allow read: if true;
+        allow create: if editor(s) && context(s,cmd(s)) && cmd(s).action == 'group' && cmd(s).payload.id == gid
+          && id(gid) && request.resource.data == {'id':gid,'brandId':cmd(s).payload.brandId,'categoryId':cmd(s).payload.categoryId,'departmentId':cmd(s).payload.departmentId,'locationIds':[],'lastRequest':cmd(s).id}
+          && get(path(s,'brands',cmd(s).payload.brandId)).data.active == true
+          && get(path(s,'categories',cmd(s).payload.categoryId)).data.active == true
+          && get(path(s,'departments',cmd(s).payload.departmentId)).data.active == true
+          && getAfter(path(s,'groupKeys',groupKey(cmd(s).payload))).data.groupId == gid;
+        allow update: if editor(s) && context(s,cmd(s)) && cmd(s).action == 'movement' && cmd(s).payload.groupId == gid
+          && validMovement(s,gid,cmd(s));
+        allow delete: if false;
+      }
+      function groupKey(p) { return p.brandId+'|'+p.categoryId+'|'+p.departmentId; }
+      match /groupKeys/{gk} {
+        allow read: if true;
+        allow create: if editor(s) && context(s,cmd(s)) && cmd(s).action == 'group' && gk == groupKey(cmd(s).payload)
+          && request.resource.data == {'groupId':cmd(s).payload.id,'lastRequest':cmd(s).id}
+          && getAfter(path(s,'groups',cmd(s).payload.id)).data.lastRequest == cmd(s).id;
+        allow update, delete: if false;
+      }
+      function validMovement(s,gid,c) {
+        let p = c.payload;
+        let before = resource.data.locationIds;
+        let removes = p.kind in ['move','correct','remove'];
+        let adds = p.kind != 'remove';
+        let afterRemove = removes ? before.removeAll([p.from]) : before;
+        let expected = adds && !before.hasAny([p.to]) ? afterRemove.concat([p.to]) : afterRemove;
+        return p.kind in ['place','also','move','correct','remove'] && id(p.id)
+          && p.reason is string && p.reason.size() <= 160 && p.reason == p.reason.trim()
+          && p.privateNote is string && p.privateNote.size() <= 2000
+          && (!(p.kind in ['correct','remove']) || p.reason.size() > 0)
+          && (removes ? before.hasAny([p.from]) : p.from == null)
+          && (adds ? id(p.to) && exists(path(s,'locations',p.to)) : p.to == null)
+          && (p.from == null || p.from != p.to)
+          && (p.kind != 'place' || before.size() == 0) && (p.kind != 'also' || before.size() > 0)
+          && (removes || !before.hasAny([p.to]))
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['locationIds','lastRequest'])
+          && request.resource.data.locationIds == expected && request.resource.data.lastRequest == c.id
+          && request.resource.data.locationIds.size() <= 100
+          && (!removes || getAfter(path(s,'locations',p.from)).data.stockCount == get(path(s,'locations',p.from)).data.stockCount-1)
+          && (!adds || getAfter(path(s,'locations',p.to)).data.stockCount == get(path(s,'locations',p.to)).data.stockCount+(before.hasAny([p.to])?0:1))
+          && getAfter(path(s,'movements',p.id)).data.lastRequest == c.id;
+      }
+      function parentChange(s,parentId,delta) {
+        return parentId == null || (getAfter(path(s,'locations',parentId)).data.childCount == get(path(s,'locations',parentId)).data.childCount+delta);
+      }
+      function validLocation(s,lid,c) {
+        let d = request.resource.data;
+        let oldParent = resource == null ? null : resource.data.parentId;
+        let codeKey = key(d.code);
+        return id(lid) && d.keys().hasOnly(['id','area','code','kind','parentId','stockCount','childCount','lastRequest'])
+          && d.id == lid && d.area == c.payload.area && text(d.area) && d.code == c.payload.code && text(d.code) && d.code == d.code.upper()
+          && d.kind == c.payload.kind && d.kind in ['Cabinet','Rack','Shelf','Drawer','Room','Wall','Tub','Area'] && d.parentId == c.payload.parentId
+          && d.lastRequest == c.id
+          && d.stockCount is int && d.stockCount >= 0 && d.stockCount <= 10000 && d.childCount is int && d.childCount >= 0 && d.childCount <= 1000
+          && (resource == null ? d.stockCount == 0 && d.childCount == 0 : d.stockCount == resource.data.stockCount && d.childCount == resource.data.childCount)
+          && (d.parentId == null || (id(d.parentId) && d.parentId != lid && get(path(s,'locations',d.parentId)).data.parentId == null && get(path(s,'locations',d.parentId)).data.area == d.area && d.childCount == 0))
+          && (resource == null || d.area == resource.data.area || d.childCount == 0)
+          && parentChange(s,oldParent,oldParent == d.parentId ? 0 : -1)
+          && parentChange(s,d.parentId,oldParent == d.parentId ? 0 : 1)
+          && (!exists(path(s,'codes',codeKey)) || get(path(s,'codes',codeKey)).data.locationId == lid)
+          && getAfter(path(s,'codes',codeKey)).data.lastRequest == c.id
+          && (resource == null || key(resource.data.code) == codeKey || !existsAfter(path(s,'codes',key(resource.data.code))));
+      }
+      function parentCounter(s,lid,c) {
+        let target = path(s,'locations',c.payload.id);
+        let oldParent = exists(target) ? get(target).data.parentId : null;
+        let newParent = c.action == 'location' ? c.payload.parentId : null;
+        return c.action in ['location','deleteLocation'] && lid != c.payload.id && lid in [oldParent,newParent]
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['childCount','lastRequest'])
+          && request.resource.data.lastRequest == c.id
+          && request.resource.data.childCount == resource.data.childCount+(lid == newParent?1:0)-(lid == oldParent?1:0)
+          && request.resource.data.childCount is int && request.resource.data.childCount >= 0 && request.resource.data.childCount <= 1000
+          && (c.action == 'location' ? getAfter(target).data.lastRequest == c.id : !existsAfter(target));
+      }
+      function stockCounter(s,lid,c) {
+        let p = c.payload;
+        let before = get(path(s,'groups',p.groupId)).data.locationIds;
+        return c.action == 'movement' && lid in [p.from,p.to]
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stockCount','lastRequest'])
+          && request.resource.data.lastRequest == c.id
+          && request.resource.data.stockCount == resource.data.stockCount+(lid == p.to && !before.hasAny([lid])?1:0)-(lid == p.from && before.hasAny([lid])?1:0)
+          && request.resource.data.stockCount is int && request.resource.data.stockCount >= 0 && request.resource.data.stockCount <= 10000
+          && getAfter(path(s,'groups',p.groupId)).data.lastRequest == c.id;
+      }
+      match /locations/{lid} {
+        allow read: if true;
+        allow create: if editor(s) && context(s,cmd(s)) && cmd(s).action == 'location' && cmd(s).payload.id == lid && validLocation(s,lid,cmd(s));
+        allow update: if editor(s) && context(s,cmd(s)) && ((cmd(s).action == 'location' && cmd(s).payload.id == lid && validLocation(s,lid,cmd(s)))
+          || (cmd(s).action in ['location','deleteLocation'] && parentCounter(s,lid,cmd(s)))
+          || (cmd(s).action == 'movement' && stockCounter(s,lid,cmd(s))));
+        allow delete: if editor(s) && context(s,cmd(s)) && cmd(s).action == 'deleteLocation' && cmd(s).payload.id == lid
+          && resource.data.stockCount == 0 && resource.data.childCount == 0
+          && !existsAfter(path(s,'codes',key(resource.data.code))) && parentChange(s,resource.data.parentId,-1);
+      }
+      match /codes/{ck} {
+        allow read: if true;
+        allow create, update: if editor(s) && context(s,cmd(s)) && cmd(s).action == 'location' && ck == key(cmd(s).payload.code)
+          && request.resource.data == {'locationId':cmd(s).payload.id,'lastRequest':cmd(s).id}
+          && (resource == null || resource.data.locationId == cmd(s).payload.id)
+          && getAfter(path(s,'locations',cmd(s).payload.id)).data.lastRequest == cmd(s).id;
+        allow delete: if editor(s) && context(s,cmd(s)) && cmd(s).payload.id == resource.data.locationId
+          && ((cmd(s).action == 'deleteLocation' && !existsAfter(path(s,'locations',cmd(s).payload.id)))
+            || (cmd(s).action == 'location' && ck != key(cmd(s).payload.code) && getAfter(path(s,'locations',cmd(s).payload.id)).data.lastRequest == cmd(s).id));
+      }
+      function address(s,lid) {
+        let l = get(path(s,'locations',lid)).data;
+        return l.area+' → '+(l.parentId == null ? '' : get(path(s,'locations',l.parentId)).data.kind+' '+get(path(s,'locations',l.parentId)).data.code+' → ')+l.kind+' '+l.code;
+      }
+      match /movements/{mid} {
+        allow read: if true;
+        allow create: if editor(s) && context(s,cmd(s)) && cmd(s).action == 'movement' && cmd(s).payload.id == mid
+          && request.resource.data == {'id':mid,'groupId':cmd(s).payload.groupId,'kind':cmd(s).payload.kind,'from':cmd(s).payload.from,'to':cmd(s).payload.to,
+            'fromLabel':cmd(s).payload.from == null ? null : address(s,cmd(s).payload.from),
+            'toLabel':cmd(s).payload.to == null ? null : address(s,cmd(s).payload.to),
+            'groupLabel':cmd(s).payload.groupLabel,'reason':cmd(s).payload.reason,'at':request.time,'lastRequest':cmd(s).id}
+          && getAfter(path(s,'groups',cmd(s).payload.groupId)).data.lastRequest == cmd(s).id;
+        allow update, delete: if false;
+      }
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "locations": [
+    {
+      "id": "shoe-drawers",
+      "area": "Drawers At Shoe Section",
+      "kind": "Area",
+      "code": "SHOE-DRAWERS",
+      "parentId": null
+    },
+    {
+      "id": "shoe-cabinet-1",
+      "area": "Drawers At Shoe Section",
+      "kind": "Cabinet",
+      "code": "SHOE-CABINET-1",
+      "parentId": "shoe-drawers"
+    },
+    {
+      "id": "shoe-cabinet-2",
+      "area": "Drawers At Shoe Section",
+      "kind": "Cabinet",
+      "code": "SHOE-CABINET-2",
+      "parentId": "shoe-drawers"
+    },
+    {
+      "id": "shoe-cabinet-3",
+      "area": "Drawers At Shoe Section",
+      "kind": "Cabinet",
+      "code": "SHOE-CABINET-3",
+      "parentId": "shoe-drawers"
+    },
+    {
+      "id": "shoe-cabinet-4",
+      "area": "Drawers At Shoe Section",
+      "kind": "Cabinet",
+      "code": "SHOE-CABINET-4",
+      "parentId": "shoe-drawers"
+    },
+    {
+      "id": "pos",
+      "area": "POS Cabinets",
+      "kind": "Area",
+      "code": "POS",
+      "parentId": null
+    },
+    {
+      "id": "pos-cabinet-1",
+      "area": "POS Cabinets",
+      "kind": "Cabinet",
+      "code": "POS-CABINET-1",
+      "parentId": "pos"
+    },
+    {
+      "id": "pos-cabinet-2",
+      "area": "POS Cabinets",
+      "kind": "Cabinet",
+      "code": "POS-CABINET-2",
+      "parentId": "pos"
+    },
+    {
+      "id": "pos-cabinet-3",
+      "area": "POS Cabinets",
+      "kind": "Cabinet",
+      "code": "POS-CABINET-3",
+      "parentId": "pos"
+    },
+    {
+      "id": "pos-cabinet-4",
+      "area": "POS Cabinets",
+      "kind": "Cabinet",
+      "code": "POS-CABINET-4",
+      "parentId": "pos"
+    },
+    {
+      "id": "mens-fits",
+      "area": "Men's Fits",
+      "kind": "Area",
+      "code": "MENS-FITS",
+      "parentId": null
+    },
+    {
+      "id": "mens-fitting-room-1",
+      "area": "Men's Fits",
+      "kind": "Room",
+      "code": "MENS-FITTING-ROOM-1",
+      "parentId": "mens-fits"
+    },
+    {
+      "id": "mens-fitting-room-2",
+      "area": "Men's Fits",
+      "kind": "Room",
+      "code": "MENS-FITTING-ROOM-2",
+      "parentId": "mens-fits"
+    },
+    {
+      "id": "birkenstock-room",
+      "area": "Birkenstock Room",
+      "kind": "Room",
+      "code": "BIRKENSTOCK-ROOM",
+      "parentId": null
+    },
+    {
+      "id": "asics-wall",
+      "area": "Asics Wall",
+      "kind": "Wall",
+      "code": "ASICS-WALL",
+      "parentId": null
+    },
+    {
+      "id": "womens-knitwear-wall",
+      "area": "Women's Knitwear Wall",
+      "kind": "Wall",
+      "code": "WOMENS-KNITWEAR-WALL",
+      "parentId": null
+    },
+    {
+      "id": "womens-denim-wall",
+      "area": "Women's Denim Wall",
+      "kind": "Wall",
+      "code": "WOMENS-DENIM-WALL",
+      "parentId": null
+    },
+    {
+      "id": "womens-bottoms-rack",
+      "area": "Women's Bottoms Rack",
+      "kind": "Rack",
+      "code": "WOMENS-BOTTOMS-RACK",
+      "parentId": null
+    },
+    {
+      "id": "womens-jacket-rack",
+      "area": "Women's Jacket Rack",
+      "kind": "Rack",
+      "code": "WOMENS-JACKET-RACK",
+      "parentId": null
+    },
+    {
+      "id": "womens-dress-rack",
+      "area": "Women's Dress Rack",
+      "kind": "Rack",
+      "code": "WOMENS-DRESS-RACK",
+      "parentId": null
+    },
+    {
+      "id": "womens-tops-rack",
+      "area": "Women's Tops Rack",
+      "kind": "Rack",
+      "code": "WOMENS-TOPS-RACK",
+      "parentId": null
+    },
+    {
+      "id": "online-desk-tubs",
+      "area": "Tub's Opposite Online Desk",
+      "kind": "Tub",
+      "code": "ONLINE-DESK-TUBS",
+      "parentId": null
+    },
+    {
+      "id": "incu-womens-bottom-wall",
+      "area": "Incu Collection Women's Bottom Wall",
+      "kind": "Wall",
+      "code": "INCU-WOMENS-BOTTOM-WALL",
+      "parentId": null
+    },
+    {
+      "id": "incu-womens-rack",
+      "area": "Incu Collection Women's Rack",
+      "kind": "Rack",
+      "code": "INCU-WOMENS-RACK",
+      "parentId": null
+    },
+    {
+      "id": "online-desk-white-cabinet",
+      "area": "White Cabinet next to Online Desk",
+      "kind": "Cabinet",
+      "code": "ONLINE-DESK-WHITE-CABINET",
+      "parentId": null
+    },
+    {
+      "id": "mens-tops-rack",
+      "area": "Men's Tops Rack",
+      "kind": "Rack",
+      "code": "MENS-TOPS-RACK",
+      "parentId": null
+    },
+    {
+      "id": "mens-jacket-rack",
+      "area": "Men's Jacket Rack",
+      "kind": "Rack",
+      "code": "MENS-JACKET-RACK",
+      "parentId": null
+    },
+    {
+      "id": "mens-denim-wall",
+      "area": "Men's Denim wall",
+      "kind": "Wall",
+      "code": "MENS-DENIM-WALL",
+      "parentId": null
+    },
+    {
+      "id": "mens-pant-rack",
+      "area": "Men's Pant Rack",
+      "kind": "Rack",
+      "code": "MENS-PANT-RACK",
+      "parentId": null
+    },
+    {
+      "id": "mens-knitwear-wall",
+      "area": "Men's Knitwear Wall",
+      "kind": "Wall",
+      "code": "MENS-KNITWEAR-WALL",
+      "parentId": null
+    },
+    {
+      "id": "break-room-white-cabinet",
+      "area": "White Cabinet Near Break Room",
+      "kind": "Cabinet",
+      "code": "BREAK-ROOM-WHITE-CABINET",
+      "parentId": null
+    },
+    {
+      "id": "tubs-below-incu-womens-rack",
+      "area": "Incu Collection Women's Rack",
+      "kind": "Tub",
+      "code": "TUBS-BELOW-INCU-WOMENS-RACK",
+      "parentId": "incu-womens-rack"
+    }
+  ],
+  "groups": [
+    {
+      "id": "incu-womens-tops",
+      "brandId": "incu-collection",
+      "categoryId": "tops",
+      "departmentId": "women"
+    },
+    {
+      "id": "incu-mens-tshirts",
+      "brandId": "incu-collection",
+      "categoryId": "t-shirts",
+      "departmentId": "men"
+    },
+    {
+      "id": "ader-hats",
+      "brandId": "ader-error",
+      "categoryId": "hats",
+      "departmentId": "unspecified"
+    },
+    {
+      "id": "ader-jackets",
+      "brandId": "ader-error",
+      "categoryId": "jackets",
+      "departmentId": "unspecified"
+    },
+    {
+      "id": "patagonia-jackets",
+      "brandId": "patagonia",
+      "categoryId": "jackets",
+      "departmentId": "unspecified"
+    },
+    {
+      "id": "patagonia-bags",
+      "brandId": "patagonia",
+      "categoryId": "bags",
+      "departmentId": "unspecified"
+    }
+  ],
+  "placements": [
+    {
+      "groupId": "incu-womens-tops",
+      "locationId": "tubs-below-incu-womens-rack"
+    },
+    {
+      "groupId": "incu-mens-tshirts",
+      "locationId": "tubs-below-incu-womens-rack"
+    },
+    {
+      "groupId": "ader-hats",
+      "locationId": "shoe-drawers"
+    },
+    {
+      "groupId": "ader-jackets",
+      "locationId": "mens-fits"
+    },
+    {
+      "groupId": "patagonia-jackets",
+      "locationId": "mens-fits"
+    },
+    {
+      "groupId": "patagonia-bags",
+      "locationId": "mens-fits"
+    }
+  ]
+}

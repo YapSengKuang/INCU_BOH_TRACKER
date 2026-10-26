@@ -1,5 +1,7 @@
 # Stock finder website — project plan and to-do list
 
+> Backend decision updated 26 October 2026: use Firebase Firestore Standard (Spark) and Google Authentication in the owner-created `incubohmanager` project. Earlier Supabase references below describe the original proposal. Current setup: [Firebase setup guide](setup-and-deployment.md).
+
 Updated 26 October 2026.
 
 ## What we're trying to fix

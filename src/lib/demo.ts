@@ -26,7 +26,7 @@ export function applyDemo(input: DemoData, request: Request, role: Role): DemoDa
     case 'location': {
       const p = request.payload
       requireText(p.area, 'Area'); requireText(p.code, 'Location code')
-      if (!['Cabinet', 'Rack', 'Shelf', 'Drawer'].includes(p.kind)) throw new Error('Choose a location type.')
+      if (!['Cabinet', 'Rack', 'Shelf', 'Drawer', 'Room', 'Wall', 'Tub', 'Area'].includes(p.kind)) throw new Error('Choose a location type.')
       if (s.locations.some(x => x.code.toLowerCase() === p.code.trim().toLowerCase() && x.id !== p.id)) throw new Error('That location code is already in use.')
       const parent = s.locations.find(x => x.id === p.parentId)
       if (p.parentId && (!parent || parent.parentId || parent.id === p.id || parent.area !== p.area)) throw new Error('Choose a storage unit in the same area.')

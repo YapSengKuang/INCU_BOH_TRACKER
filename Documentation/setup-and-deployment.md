@@ -1,67 +1,92 @@
-# Connect and deploy Sprint 1
+# Firebase setup and deployment
 
-## Current state
+Updated 26 October 2026. Firebase replaces the Supabase prototype, retained under `archive/supabase`. The owner created **INCUBOHMANAGER**, ID `incubohmanager`, with a Standard Native `(default)` Firestore database on Spark. The console reports **nam5 (United States)**. Use this existing database, whose location differs from the earlier Sydney preference.
 
-The app is built and checked locally. Per the owner's instruction, database provisioning and hosting are deferred. Keep using the clearly labelled sample workspace until a dedicated Supabase project is ready. Do not point this app at another app's database.
+## Local development
 
-## Database setup
+Hosted setup is complete for the local app: rules/indexes deployed, the live catalogue seeded, Google sign-in enabled, and the first verified owner bootstrapped. Cloudflare still needs this frontend release and its five environment variables. The numbered steps below document repeatable setup, not unfinished local provisioning.
 
-1. Create a dedicated Supabase project in the intended organisation. Check the quoted plan and cost; this work has not created a project or incurred hosting/database charges.
-2. Apply `supabase/migrations/20261026091224_sprint_one_stock_finder.sql` using the SQL Editor or the Supabase CLI migration workflow. The CLI is pinned in dev dependencies. Discover current commands with `npx supabase --help` before operating a hosted project.
-3. Run `supabase/seed.sql` once in the fresh database. It creates an Incu store, 140 documented brands (all initially disabled), categories and departments. It loads no example locations or stock. `node scripts/generate-seed.mjs` regenerates the seed from the saved directory.
-4. Enable email authentication. Configure the Site URL and allowed redirect URLs for the local, preview and production origins. The app uses passwordless email links. A confirmed account alone grants no store access.
-5. Sign in as the initial owner using the website's staff sign-in form. It is expected to remain a public viewer until bootstrap is complete. Copy that user's UUID from Supabase Authentication, and the store UUID from `public.stores`. As database administrator, add the owner explicitly:
+Requires Node 22.12+ (Node 24 tested). With all five Firebase/store variables unset the app uses isolated sample browser data. Partial configuration is an error. Connected mode removes the sample role picker and uses actual Google authentication and membership.
 
-   ```sql
-   insert into private.memberships(store_id,user_id,role)
-   values ('<actual store UUID>','<actual confirmed owner user UUID>','owner');
+```sh
+npm ci
+npm test
+npm run build
+```
+
+Security/integration tests additionally require **Java 21+** on `JAVA_HOME` or `PATH`:
+
+```sh
+npm run test:rules
+npm run emulators
+```
+
+Tests use fake project `demo-boh`, never live data. Firestore runs on `127.0.0.1:8787`; Auth on `127.0.0.1:9099`. For app integration, supply a demo web configuration with project `demo-boh`, a valid-shaped dummy API key/app ID, store `main`, and `VITE_USE_FIREBASE_EMULATORS=true`. Seed using the admin script with `FIRESTORE_EMULATOR_HOST=127.0.0.1:8787` and `FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099`. Emulator mode is rejected outside localhost; never enable it on a hosted build.
+
+## Connect the existing project
+
+1. Sign in with `npx -y firebase-tools@latest login`. `.firebaserc` selects `incubohmanager`; explicitly pass `--project incubohmanager` for remote operations. This implementation does not require paid services.
+2. The BOH Web app is registered, and local connection is active through the ignored `.env.local` file. An ignored `.env.firebase.local` profile also holds the selected configuration (Vite mode `firebase`). For a new environment, obtain the configuration from Firebase project settings. These identifiers are public configuration; administrator credentials must never appear in `VITE_` variables.
+3. Enable Authentication → Google, choose the intended support email, and add `localhost`, `127.0.0.1`, and the actual deployment hostname to authorised domains. Google sign-in alone grants no editing access.
+4. Inspect existing rules and collections before deploying. The BOH rule file denies all non-BOH paths, so do not overwrite rules belonging to another app. This project's database was empty when inspected. Test, then deploy:
+
+   ```sh
+   npx -y firebase-tools@latest deploy --only firestore:rules,firestore:indexes --project incubohmanager
    ```
 
-6. Copy `.env.example` to `.env.local` and fill in the project's API URL, **publishable** browser key and store UUID. Never use a service-role/secret key in `VITE_` variables. Set all three variables together. Restart Vite after changes.
-7. Sign out/in or refresh the page to pick up owner membership. Enable store brands in Settings, then enter physically verified starting locations.
+5. Seed a fresh live store:
 
-Supabase public API schema exposure should remain `public` only. **Do not expose `private` through PostgREST.** Public tables have RLS and read-only grants. All mutations are authorised server-side against `private.memberships`. Private implementations use a fixed empty search path and explicit grants; public RPC wrappers use invoker security. Guests can read directory tables and the snapshot RPC; they cannot mutate or retrieve private account/audit data. Self-service signup does not confer membership.
+   ```sh
+   npm run firebase:admin -- seed --project incubohmanager --store main --name BOH --cli-account YOUR_GOOGLE_EMAIL
+   ```
 
-### Invitations
+   The tool normally uses Google Application Default Credentials. The optional `--cli-account` adapter reuses a named signed-in account through the pinned local Firebase CLI and initialises the Firestore server client with in-memory OAuth user credentials. Tokens remain in memory; none are printed or saved in the repository. Seed creates 140 disabled brands, 12 categories, four departments and **no live locations or stock**. Existing stores/populated destination collections are rejected.
+6. Fill `.env.local` from `.env.example`: `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`, and `VITE_STORE_ID=main`. Restart Vite.
+7. Sign in through BOH using the intended owner's Google account. It remains a viewer until bootstrap. Copy its UID from Firebase Authentication, then grant initial owner access:
 
-Owners add an email allowlist entry in Settings → Staff and share the website link with that person. This action does not send email automatically. Staff request a sign-in link, sign in with that confirmed email, then choose **Already signed in? Accept store invitation**. The database consumes only a matching confirmed email invitation and grants editor access. Owners can revoke active editor membership or unused invitations. Membership is checked on every write, so revocation takes effect for subsequent saves without waiting for token refresh. Owner removal is intentionally not exposed through the app.
+   ```sh
+   npm run firebase:admin -- owner --project incubohmanager --store main --uid VERIFIED_GOOGLE_UID --owner-email OWNER_EMAIL --cli-account YOUR_GOOGLE_EMAIL
+   ```
 
-## Cloudflare Pages
+   The tool verifies the Auth identity, verified email and Google provider, and refuses an existing owner or matching membership. Browser clients cannot create owners. Refresh the app to pick up the role.
+8. Enable store brands and enter physically confirmed starting locations. Sample starter records are retained separately and are not automatically uploaded as verified live inventory.
 
-The documented hosting target remains Cloudflare Pages. No Sites registration or deployment has been performed.
+## Access and invitations
 
-- Build command: `npm ci && npm run build`
-- Output directory: `dist`
-- Node: 24, or another version supported by the pinned Vite release.
-- Set the three `VITE_` variables in the deployment environment before building. Use a separate Supabase project for preview if writes should be exercised there. A build with all three unset is clearly labelled sample mode; partial configuration reports an error.
-- `public/_headers` supplies security headers and a restrictive production CSP. Geist is served locally from `public/fonts/Geist-Variable.ttf`, with its SIL Open Font License in the same directory. No external font service is required.
-- `public/_redirects` serves the entry page for application URLs. All Sprint 1 sections are in the single-page workspace.
-- Allow the deployed origin in Supabase Auth redirect settings and verify guest browsing, invitation acceptance and owner export on the actual deployment.
+Guests can read directory data and public movement history, including storage addresses. This is the intended product access model. Private memberships, invitations, email indexes, actor identities, notes and retry receipts are separate collections. Owners can list staff/export private data; signed-in users can inspect their own membership, invitation and receipts.
 
-## Atomic saves and conflicts
+Owners invite an email in Settings → Staff and share the BOH website link themselves. **The app does not send invitation emails.** Staff choose Continue with Google using the matching verified email. The invitation is consumed atomically and grants editor access. Owners can revoke editor membership or unused invitations. Every save checks current database membership, so subsequent writes are denied immediately after revocation. Owner removal is an administrator operation.
 
-Each command locks the store row, checks current database membership, checks its idempotency receipt, then compares the expected store revision. Setup changes, placements, public history, private notes, the revision and the retry receipt commit together. Direct client writes to directory tables are denied. The lock serialises location deletion with stock updates and prevents cross-record races. Commands scope every lookup to the store. A move into an already linked destination removes only the selected source and keeps a single destination link.
+## Atomic saves and data model
 
-The form disables repeat clicks while saving and retains entered data after failure. Retries reuse the same request ID and payload. A changed payload gets a new request ID; it still has to pass the original expected revision. On a conflict, the user explicitly loads current data, reviews their entry and saves again. Current location selectors update after that reload. There is no automatic overwrite. This store-wide revision is deliberately conservative: unrelated edits can also require review.
+All data lives under `stores/{storeId}`. Public collections: `brands`, `categories`, `departments`, `locations`, `groups`, `movements`. Private collections: `members`, `invitations`, `accessEmails`, `commands`. `codes`, `uniqueNames`, and `groupKeys` enforce uniqueness without private information.
 
-For a deployment where a request's response was lost, retry without refreshing the page first. The committed request receipt returns the original result without another movement. Receipts are included in connected-store backups.
+Each save is a Firestore transaction checking actual membership, an immutable retry receipt and the expected global store revision. It commits records, counters, history, private notes, receipt and revision together. Rules independently validate every affected record and require the command's results through `getAfter()`. This works without a paid Cloud Function.
+
+Unrelated edits can cause conservative revision conflicts. Forms preserve input and require explicit reload/review. A retry uses the same request ID and payload; a committed receipt prevents duplicate history. Moving into an already linked destination removes only the chosen source. Occupied locations and units with children cannot be deleted. Rule bounds include 100 placements per group, 160-character names/reasons, 2,000-character private notes, and bounded counters.
+
+Public history snapshots labels at movement time; later renames/deletions do not rewrite it. Private notes/actors appear only in owner exports. Before/after revision reads bracket collection queries for coherent snapshots/exports. Administrator writes bypass these rules and must be coordinated separately; do not manually change live records while staff edit.
 
 ## Backup and recovery
 
-The owner download is one database snapshot. It includes all public Sprint 1 data plus private membership, invitations, movement actors/notes and idempotency receipts. Store this JSON as a protected file. Public APIs never include the private fields.
+Owners download a protected JSON containing the public snapshot, private staff/access data, notes, receipts, indexes and counters. Keep the original securely. Manual JSON exports are the Sprint 1 backup mechanism; paid managed backups and scheduled Cloud Functions are not enabled.
 
-Sample recovery: in the browser sample workspace choose **Store owner → Settings → Export & recovery**, download a backup, then choose it under recovery. It is validated before a single storage write. The local store revision advances after recovery so older open forms must review their changes. This feature intentionally recovers only the isolated sample workspace.
+Sample recovery in Settings → Export & recovery also accepts `public/starter-backup.json` and changes only the browser's sample workspace.
 
-Connected-store recovery:
+Connected recovery uses a trusted administrator and **a fresh store ID**:
 
-1. Preserve the downloaded original. Use an isolated recovery database or a **new store UUID** in the same database.
-2. Install `supabase/recover.sql` as database administrator. Its function has no execution grant for browser roles, uses invoker security and rejects an existing destination store.
-3. Supply the exported JSON as a bound parameter to `private.recover_store(backup_json, new_store_uuid, 'Recovered store')` through a trusted admin client, or as a quoted JSON literal in the SQL Editor. Never paste it into public logs or a frontend file.
-4. For recovery into another project, restore the referenced Auth users first or explicitly map their UUIDs in the private records to intended identities. The routine preserves all original IDs and rejects missing identity references rather than silently dropping access/audit data.
-5. Verify every recovered collection, staff role, private note and receipt against the export. Point a test build at the recovered store and repeat the search/movement demo before using it live.
+```sh
+npm run firebase:admin -- recover --project incubohmanager --store recovered-20261026 --name 'Recovered BOH' --backup /absolute/path/owner-export.json --cli-account YOUR_GOOGLE_EMAIL
+```
 
-The automated database test exports a populated store, recovers into a new store UUID, and compares every public collection and private table. This does not substitute for a hosted disaster-recovery drill with real Auth users.
+Recovery checks the public snapshot against raw records, relationships, unique indexes, counters, membership indexes and timestamps. Private records/receipts are preserved. In another project, restore matching verified Auth users first; the script rejects missing/mismatched active identities. The destination must be empty. Recovery is atomic and currently supports **up to 450 documents**, rejecting larger backups before writing. Larger stores need a reviewed administrator migration. Export/recover regularly as the store grows; a successful download does not establish that the export fits this tool.
 
-## Release and rollback
+Compare every recovered collection and repeat sign-in/search/movement checks in a test build before changing production. Emulator tests verify recovery, but a hosted recovery drill remains a release check.
 
-Before schema changes, take an owner export and keep the currently working frontend deployment. Use additive migrations to preserve older frontend compatibility. After deployment, check public search and history, invited editing, denied unauthorised writes, owner export and the real starting locations. If the frontend release fails, roll Cloudflare Pages back to the previous successful deployment. Avoid destructive down-migrations; restore data into a fresh store and verify it before redirecting production to recovered records. There is no previous app deployment in this new repository yet.
+## Cloudflare hosting
+
+Keep the existing Cloudflare target. Build: `npm ci && npm run build`; output: `dist`; Node: 24. Set all five browser/store variables in the deployment environment before building. Use a separate test store/project for writable previews.
+
+`public/_headers` permits Firebase/Google Auth and database endpoints, preserves local Geist fonts and permits the Google popup. `public/_redirects` handles SPA navigation. Verify the deployed Auth hostname allowlist, popup sign-in, guest browsing, invited editing, revoked access and owner export on the actual deployment. Retain a successful frontend release for rollback; restore data into a fresh store rather than overwriting live records.
+
+Spark quotas apply across this project. The current client loads directory/history collections, so reads grow with database size and refreshes. Monitor usage; add pagination/selective loading before large rollouts. Current limits: [Firebase pricing](https://firebase.google.com/pricing), [Firestore quotas](https://firebase.google.com/docs/firestore/quotas).

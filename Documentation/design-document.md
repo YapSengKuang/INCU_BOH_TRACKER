@@ -78,7 +78,7 @@ Guests can search, browse locations and read history. Invited editors maintain s
 
 The sample workspace has a peach **Sample data** banner and a **View as** picker. It is isolated browser data. Connected mode removes that picker and uses real authentication and database membership.
 
-The data model, atomic command implementation and recovery procedure are documented in the SQL migration and [setup guide](setup-and-deployment.md). This redesign does not change those contracts.
+Connected mode uses Firebase Firestore Standard and Google sign-in. The data model, atomic transaction/rules protocol and administrator recovery procedure are documented in the [setup guide](setup-and-deployment.md). Private staff data is separate from public stock/history documents.
 
 ## Responsive and keyboard behaviour
 
@@ -88,6 +88,6 @@ Use fluid widths, wrapped filters and stacked stock rows on phones. Target 40–
 
 Run the production build and existing database/domain tests. Browser-check search, filtering, all locations in a row, selecting/closing details, new-group-to-first-placement, optional notes, history, settings, and collapsed navigation at desktop and mobile widths. Check for horizontal overflow and confirm the local font asset is served.
 
-Hosted Auth, Data API, physical-device staff trials, deployment and production recovery remain separate release gates; the owner previously requested local preparation with database connection later.
+Hosted Google Auth, Firestore rules, physical-device staff trials, deployment and production recovery require release verification. The owner has now requested connection to their existing Firebase project.
 
 Future map and report screens should reuse these colours, font, direct headings and task-first layout. Map drafts/publication and print output are later-sprint work.

@@ -6,4 +6,10 @@ dist/
 .DS_Store
 supabase/.temp/
 supabase/.branches/
+archive/supabase/database/.temp/
 *.tsbuildinfo
+
+.firebase/
+*-debug.log
+firestore-debug.log
+ui-debug.log
