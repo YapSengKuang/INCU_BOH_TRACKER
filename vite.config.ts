@@ -2,10 +2,8 @@ import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
-  build: {
-    rolldownOptions: {
-      output: { codeSplitting: { includeDependenciesRecursively: false, groups: [{ name: 'firestore', test: /node_modules\/@firebase\/firestore/, priority: 2 }, { name: 'auth', test: /node_modules\/@firebase\/auth/, priority: 2 }, { name: 'vendor', test: /node_modules/, priority: 1 }] } }
-    }
-  },
+  // Let Vite preserve dependency initialization order. Manually separating
+  // Firebase Auth/Firestore from their shared helpers created circular chunks
+  // that crashed before React could render in the production build.
   test: { include: ['tests/*.test.ts'], testTimeout: 30000 }
 })

@@ -10,7 +10,7 @@ The UI retains BOH branding, the approved palette, local Geist, direct headings 
 
 ## Current verification
 
-- 22 tests pass: 12 sample-domain/starter-data checks and 10 Firestore integration/security checks.
+- 13 sample-domain/starter-data/production-bundle tests pass. The 10 Firestore integration/security checks passed in the backend verification.
 - Firestore Standard emulator tests exercise real transactions: public/private reads, denied writes, option creation/rename/uniqueness, groups, parent counters, occupied deletion, split placements, merging moves, immutable history, idempotent retries, invitation claim, revocation, owner escalation denial, competing/stale revisions and complete owner-export recovery.
 - Hostile batches bypass friendly client validation and target forged labels/addresses/actors/timestamps, missing history/counters, extra fields, private-note leakage, oversized notes, duplicate links, unverified users and uninvited users.
 - Production TypeScript/Vite build checked. Archived PGlite tests are no longer counted as current backend verification.
@@ -45,3 +45,7 @@ Cloudflare frontend deployment/environment configuration has not been changed by
 See [setup and deployment](setup-and-deployment.md). Maps and PDF reports remain later-sprint work.
 
 Production dependency audit: zero reported vulnerabilities after compatible gRPC/re2 patches. Five moderate advisories remain in Firebase CLI development dependencies (OpenTelemetry and gaxios/uuid chains); resolving them requires upstream or major-version changes. These CLI dependencies are not shipped in the browser bundle.
+
+## Production bundle correction — 27 October 2026
+
+Removed manual Firebase Auth/Firestore/vendor chunk groups after the deployed app failed before rendering with a constructor TypeError. Those groups created circular chunk imports and accessed shared constructors before initialisation. Vite now chooses the bundle layout automatically. A production API import regression test builds the actual Firebase entry and evaluates it in a fresh process; the old chunk settings reproduce the constructor error, while the corrected settings pass. The built site was served through Vite preview and browser-checked for stock search, locations, history and the sign-in dialog against the hosted database, with no runtime errors. This check uses compiled production assets rather than the development server. The larger JavaScript bundle currently produces a size advisory; further splitting must preserve execution order and pass the regression check.
