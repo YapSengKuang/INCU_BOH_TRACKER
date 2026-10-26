@@ -1,0 +1,2118 @@
+{
+  "retrieved_on": "2026-10-26",
+  "description": "Starter brand directory from Incu public brand pages. Department tags reflect directory listings, not store inventory or availability. Enable brands per store after review.",
+  "counts": {
+    "men": 89,
+    "women": 100,
+    "unique": 140
+  },
+  "brands": [
+    {
+      "slug": "19-69",
+      "name": "19-69",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/19-69/mens",
+        "women": "https://www.incu.com/collections/19-69/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "a-emery",
+      "name": "A.Emery",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/a-emery/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "a-p-c",
+      "name": "A.P.C.",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/a-p-c/mens",
+        "women": "https://www.incu.com/collections/a-p-c/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "acne-studios",
+      "name": "Acne Studios",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/acne-studios/mens",
+        "women": "https://www.incu.com/collections/acne-studios/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "ader-error",
+      "name": "ADER Error",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/ader-error/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "adidas",
+      "name": "adidas",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/adidas/mens",
+        "women": "https://www.incu.com/collections/adidas/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "adidas-x-wales-bonner",
+      "name": "adidas x Wales Bonner",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/adidas-x-wales-bonner/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "agolde",
+      "name": "Agolde",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/agolde/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "alexander-wang",
+      "name": "Alexander Wang",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/alexander-wang/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "ami-paris",
+      "name": "AMI PARIS",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/ami-paris/mens",
+        "women": "https://www.incu.com/collections/ami-paris/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "and-wander",
+      "name": "And Wander",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/and-wander/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "andersson-bell",
+      "name": "Andersson Bell",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/andersson-bell/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "anna-quan",
+      "name": "Anna Quan",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/anna-quan/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "anni-lu",
+      "name": "Anni Lu",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/anni-lu/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "arcteryx",
+      "name": "Arc'teryx",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/arcteryx/mens",
+        "women": "https://www.incu.com/collections/arcteryx/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "arcs",
+      "name": "ARCS",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/arcs/mens",
+        "women": "https://www.incu.com/collections/arcs/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "asics",
+      "name": "Asics",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/asics/mens",
+        "women": "https://www.incu.com/collections/asics/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "auralee",
+      "name": "Auralee",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/auralee/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "baina",
+      "name": "Baina",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/baina/mens",
+        "women": "https://www.incu.com/collections/baina/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "bao-bao",
+      "name": "Bao Bao",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/bao-bao/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "baum-und-pferdgarten",
+      "name": "Baum und Pferdgarten",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/baum-und-pferdgarten/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "beams-japan",
+      "name": "Beams Japan",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/beams-japan/mens",
+        "women": "https://www.incu.com/collections/beams-japan/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "beams-plus",
+      "name": "Beams Plus",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/beams-plus/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "birkenstock",
+      "name": "Birkenstock",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/birkenstock/mens",
+        "women": "https://www.incu.com/collections/birkenstock/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "birkenstock-1774",
+      "name": "Birkenstock 1774",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/birkenstock-1774/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "blanca",
+      "name": "Blanca",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/blanca/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "bleue-burnham",
+      "name": "Bleue Burnham",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/bleue-burnham/mens",
+        "women": "https://www.incu.com/collections/bleue-burnham/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "blue-elephant",
+      "name": "Blue Elephant",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/blue-elephant/mens",
+        "women": "https://www.incu.com/collections/blue-elephant/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "cameron-studio",
+      "name": "Cameron Studio",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/cameron-studio/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "carhartt-wip",
+      "name": "Carhartt WIP",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/carhartt-wip/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "carter-young",
+      "name": "Carter Young",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/carter-young/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "cecilie-bahnsen",
+      "name": "Cecilie Bahnsen",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/cecilie-bahnsen/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "christopher-esber",
+      "name": "Christopher Esber",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/christopher-esber/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "ciao-lucia",
+      "name": "Ciao Lucia",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/ciao-lucia/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "citizens-of-humanity",
+      "name": "Citizens of Humanity",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/citizens-of-humanity/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "clarks",
+      "name": "Clarks",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/clarks/mens",
+        "women": "https://www.incu.com/collections/clarks/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "commas",
+      "name": "COMMAS",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/commas/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "comme-des-garcons-homme",
+      "name": "Comme des Garçons Homme",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/comme-des-garcons-homme/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "comme-des-garcons-parfums",
+      "name": "Comme des Garçons Parfums",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/comme-des-garcons-parfums/mens",
+        "women": "https://www.incu.com/collections/comme-des-garcons-parfums/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "comme-des-garcons-play",
+      "name": "Comme des Garçons Play",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/comme-des-garcons-play/mens",
+        "women": "https://www.incu.com/collections/comme-des-garcons-play/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "comme-des-garcons-wallets",
+      "name": "Comme des Garçons Wallet",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/comme-des-garcons-wallets/mens",
+        "women": "https://www.incu.com/collections/comme-des-garcons-wallets/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "comoli",
+      "name": "COMOLI",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/comoli/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "completedworks",
+      "name": "Completedworks",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/completedworks/mens",
+        "women": "https://www.incu.com/collections/completedworks/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "crystal-haze",
+      "name": "Crystal Haze",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/crystal-haze/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "damson-madder",
+      "name": "Damson Madder",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/damson-madder/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "deiji-studios",
+      "name": "Deiji Studios",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/deiji-studios/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "diesel",
+      "name": "Diesel",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/diesel/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "dries-van-noten",
+      "name": "Dries Van Noten",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/dries-van-noten/mens",
+        "women": "https://www.incu.com/collections/dries-van-noten/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "dunst",
+      "name": "DUNST",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/dunst/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "esse-studios",
+      "name": "ESSE Studios",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/esse-studios/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "fear-of-god-essentials",
+      "name": "Fear of God: Essentials",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/fear-of-god-essentials/mens",
+        "women": "https://www.incu.com/collections/fear-of-god-essentials/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "flore-flore",
+      "name": "FLORE FLORE",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/flore-flore/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "ganni",
+      "name": "Ganni",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/ganni/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "gimaguas",
+      "name": "Gimaguas",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/gimaguas/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "gottlob",
+      "name": "Gottlob",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/gottlob/mens",
+        "women": "https://www.incu.com/collections/gottlob/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "gramicci",
+      "name": "Gramicci",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/gramicci/mens",
+        "women": "https://www.incu.com/collections/gramicci/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "graphpaper",
+      "name": "Graphpaper",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/graphpaper/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "heavenly-jelly",
+      "name": "Heavenly Jelly",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/heavenly-jelly/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "hommegirls",
+      "name": "HommeGirls",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/hommegirls/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "howlin",
+      "name": "Howlin'",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/howlin/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "incu-1976",
+      "name": "Incu 1976",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/incu-1976/mens",
+        "women": "https://www.incu.com/collections/incu-1976/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "incu-collection",
+      "name": "Incu Collection",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/incu-collection/mens",
+        "women": "https://www.incu.com/collections/incu-collection/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "jacquemus",
+      "name": "Jacquemus",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/jacquemus/mens",
+        "women": "https://www.incu.com/collections/jacquemus/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "jacques-soloviere",
+      "name": "Jacques Solovière",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/jacques-soloviere/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "junya-watanabe",
+      "name": "Junya Watanabe",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/junya-watanabe/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "justine-clenquet",
+      "name": "Justine Clenquet",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/justine-clenquet/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "kapital",
+      "name": "Kapital",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/kapital/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "kaptain-sunshine",
+      "name": "KAPTAIN SUNSHINE",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/kaptain-sunshine/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "kardo",
+      "name": "Kardo",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/kardo/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "larriet",
+      "name": "Larriet",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/larriet/mens",
+        "women": "https://www.incu.com/collections/larriet/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "lemaire",
+      "name": "Lemaire",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/lemaire/mens",
+        "women": "https://www.incu.com/collections/lemaire/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "levis-vintage-clothing",
+      "name": "Levi's Vintage Clothing",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/levis-vintage-clothing//mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "low-classic",
+      "name": "Low Classic",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/low-classic/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "maison-balzac",
+      "name": "Maison Balzac",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/maison-balzac/mens",
+        "women": "https://www.incu.com/collections/maison-balzac/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "maison-kitsune",
+      "name": "Maison Kitsune",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/maison-kitsune/mens",
+        "women": "https://www.incu.com/collections/maison-kitsune/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "maison-mihara-yasuhiro",
+      "name": "Maison MIHARA YASUHIRO",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/maison-mihara-yasuhiro/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "maple",
+      "name": "Maple",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/maple/mens",
+        "women": "https://www.incu.com/collections/maple/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "margesherwood",
+      "name": "MARGESHERWOOD",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/margesherwood/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "marine-serre",
+      "name": "Marine Serre",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/marine-serre/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "mfpen",
+      "name": "mfpen",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/mfpen/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "miaou",
+      "name": "MIAOU",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/miaou/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "miista",
+      "name": "Miista",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/miista/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "mikia",
+      "name": "Mikia",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/mikia/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "miu-miu",
+      "name": "Miu Miu",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/miu-miu/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "mizuno",
+      "name": "Mizuno",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/mizuno/mens",
+        "women": "https://www.incu.com/collections/mizuno/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "mm6",
+      "name": "MM6",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/mm6/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "molebo",
+      "name": "Molebo",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/molebo/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "monokel",
+      "name": "Monokel",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/monokel/mens",
+        "women": "https://www.incu.com/collections/monokel/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "museum-of-peace-and-quiet",
+      "name": "Museum of Peace and Quiet",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/museum-of-peace-and-quiet/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "needles",
+      "name": "Needles",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/needles/mens",
+        "women": "https://www.incu.com/collections/needles/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "new-balance",
+      "name": "New Balance",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/new-balance/mens",
+        "women": "https://www.incu.com/collections/new-balance/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "nike",
+      "name": "Nike",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/nike/mens",
+        "women": "https://www.incu.com/collections/nike/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "nike-acg#",
+      "name": "Nike ACG",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/nike-acg#/filter:ss_gender:Mens/mens",
+        "women": "https://www.incu.com/collections/nike-acg#/filter:ss_gender:Womens/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "nn07",
+      "name": "NN07",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/nn07/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "nonfiction",
+      "name": "NONFICTION",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/nonfiction/mens",
+        "women": "https://www.incu.com/collections/nonfiction/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "norda",
+      "name": "norda",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/norda/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "norse-projects",
+      "name": "Norse Projects",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/norse-projects/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "numbering",
+      "name": "Numbering",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/numbering/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "on-running",
+      "name": "On Running",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/on-running/mens",
+        "women": "https://www.incu.com/collections/on-running/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "orslow",
+      "name": "orSlow",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/orslow/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "osoi",
+      "name": "OSOI",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/osoi/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "our-legacy",
+      "name": "Our Legacy",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/our-legacy/mens",
+        "women": "https://www.incu.com/collections/our-legacy/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "paloma-wool",
+      "name": "Paloma Wool",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/paloma-wool/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "pam",
+      "name": "PAM",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/pam/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "paraboot",
+      "name": "Paraboot",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/paraboot/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "patagonia",
+      "name": "Patagonia",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/patagonia/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "peachy-den",
+      "name": "Peachy Den",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/peachy-den/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "perdrisat",
+      "name": "PERDRISÂT",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/perdrisat/mens",
+        "women": "https://www.incu.com/collections/perdrisat/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "port-tanger",
+      "name": "Port Tanger",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/port-tanger/mens",
+        "women": "https://www.incu.com/collections/port-tanger/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "porter-yoshida-co",
+      "name": "Porter-Yoshida & Co",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/porter-yoshida-co/mens",
+        "women": "https://www.incu.com/collections/porter-yoshida-co/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "prada",
+      "name": "Prada",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/prada/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "provider-store",
+      "name": "Provider Store",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/provider-store/mens",
+        "women": "https://www.incu.com/collections/provider-store/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "rag-bone",
+      "name": "Rag & Bone",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/rag-bone/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "rockfish-weatherwear",
+      "name": "Rockfish Weatherwear",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/rockfish-weatherwear/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "salomon",
+      "name": "Salomon",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/salomon/mens",
+        "women": "https://www.incu.com/collections/salomon/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "samsoe-samsoe",
+      "name": "Samsøe Samsøe",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/samsoe-samsoe/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "saturdays-nyc",
+      "name": "Saturdays NYC",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/saturdays-nyc/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "service-works",
+      "name": "Service Works",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/service-works/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "simone-rocha",
+      "name": "Simone Rocha",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/simone-rocha/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "solovair",
+      "name": "Solovair",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/solovair/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "song-for-the-mute",
+      "name": "Song for the Mute",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/song-for-the-mute/mens",
+        "women": "https://www.incu.com/collections/song-for-the-mute//womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "sophie-bille-brahe",
+      "name": "Sophie Bille Brahe",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/sophie-bille-brahe/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "south2-west8",
+      "name": "South2 West8",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/south2-west8/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "sporty-and-rich",
+      "name": "Sporty & Rich",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/sporty-and-rich/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "st-agni",
+      "name": "St. Agni",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/st-agni/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "state-of-escape",
+      "name": "State of Escape",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/state-of-escape/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "still-by-hand",
+      "name": "Still By Hand",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/still-by-hand/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "stone-island",
+      "name": "Stone Island",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/stone-island/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "story-mfg",
+      "name": "Story MFG",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/story-mfg/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "studio-nicholson",
+      "name": "Studio Nicholson",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/studio-nicholson/mens",
+        "women": "https://www.incu.com/collections/studio-nicholson/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "the-north-face",
+      "name": "The North Face",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/the-north-face/mens",
+        "women": "https://www.incu.com/collections/the-north-face/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "toga-pulla",
+      "name": "Toga Pulla",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/toga-pulla/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "tom-wood",
+      "name": "Tom Wood",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/tom-wood/mens",
+        "women": "https://www.incu.com/collections/tom-wood/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "toteme",
+      "name": "Toteme",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/toteme/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "universal-works",
+      "name": "Universal Works",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/universal-works/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "veilance#",
+      "name": "VEILANCE",
+      "departments": [
+        "men",
+        "women"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/veilance#/filter:ss_gender:Mens/mens",
+        "women": "https://www.incu.com/collections/veilance#/filter:ss_gender:Womens/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men",
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "vinnys",
+      "name": "Vinny's",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/vinnys/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "wynn-hamlyn",
+      "name": "Wynn Hamlyn",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/wynn-hamlyn/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "yaeca",
+      "name": "Yaeca",
+      "departments": [
+        "men"
+      ],
+      "collection_urls": {
+        "men": "https://www.incu.com/collections/yaeca/mens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-men"
+      ],
+      "enabled_for_store": false
+    },
+    {
+      "slug": "yvmin",
+      "name": "YVMIN",
+      "departments": [
+        "women"
+      ],
+      "collection_urls": {
+        "women": "https://www.incu.com/collections/yvmin/womens"
+      },
+      "source_pages": [
+        "https://www.incu.com/pages/brands-women"
+      ],
+      "enabled_for_store": false
+    }
+  ]
+}
