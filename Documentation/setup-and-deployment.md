@@ -85,8 +85,8 @@ Compare every recovered collection and repeat sign-in/search/movement checks in 
 
 ## Cloudflare hosting
 
-Keep the existing Cloudflare target. Build: `npm ci && npm run build`; output: `dist`; Node: 24. Set all five browser/store variables in the deployment environment before building. Use a separate test store/project for writable previews.
+The existing Cloudflare target is the Worker `incu-boh-tracker`. Build: `npm ci && npm run build`; deploy: `npx wrangler deploy`; output: `dist`; Node: 24. Set all five browser/store variables under Cloudflare's **Build variables and secrets** before building. Use a separate test store/project for writable previews.
 
-`public/_headers` permits Firebase/Google Auth and database endpoints, preserves local Geist fonts and permits the Google popup. `public/_redirects` handles SPA navigation. Verify the deployed Auth hostname allowlist, popup sign-in, guest browsing, invited editing, revoked access and owner export on the actual deployment. Retain a successful frontend release for rollback; restore data into a fresh store rather than overwriting live records.
+`wrangler.jsonc` selects the Worker, serves `dist`, and enables native single-page-application fallback. The old catch-all `/* /index.html 200` redirect has been removed because Workers rejects it as an infinite loop (error 100324). `public/_headers` permits Firebase/Google Auth and database endpoints, preserves local Geist fonts and permits the Google popup. Verify the deployed Auth hostname allowlist, popup sign-in, guest browsing, invited editing, revoked access and owner export on the actual deployment. Retain a successful frontend release for rollback; restore data into a fresh store rather than overwriting live records.
 
 Spark quotas apply across this project. The current client loads directory/history collections, so reads grow with database size and refreshes. Monitor usage; add pagination/selective loading before large rollouts. Current limits: [Firebase pricing](https://firebase.google.com/pricing), [Firestore quotas](https://firebase.google.com/docs/firestore/quotas).
