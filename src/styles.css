@@ -242,6 +242,17 @@ main { max-width: 1550px; margin: auto; padding: 28px 32px 40px; }
 .option-row small { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
 .availability { background: var(--tint); color: var(--muted); font-size: 12px; padding: 4px 8px; border-radius: 4px; white-space: nowrap; }
 .availability.enabled { background: var(--beige); color: var(--blue); }
+.brand-selection-bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+.brand-selection-bar > .button { margin-left: auto; }
+.brand-selection-status:not(:empty) { margin-top: 12px; color: var(--blue); }
+.brand-choice { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; cursor: pointer; min-height: 44px; }
+.brand-choice input { width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--blue); }
+.brand-choice > span { min-width: 0; }
+.brand-choice:has(input:disabled) { cursor: default; }
+.brand-option-row:has(input:checked:not(:disabled)) { background: var(--beige); }
+.brand-option-row { flex-wrap: wrap; }
+.brand-option-row .brand-choice { flex-basis: 180px; }
+.brand-option-row .text-button { flex-shrink: 0; }
 .settings-section > .info-box { margin-top: 20px; }
 .settings-section > .small { margin-top: 20px; margin-bottom: 0; }
 .data-section { max-width: 640px; }
