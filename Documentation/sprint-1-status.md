@@ -30,3 +30,9 @@ PGlite exercises Postgres SQL and permissions, not Supabase's hosted Auth email 
 - Perform a hosted export/recovery drill and establish a previous successful deployment for rollback.
 
 These release gates remain open. The owner selected local preparation with database connection later; no cloud resources were created or changed.
+
+## UI update — 26 October 2026
+
+Applied the owner’s orange/peach/beige/blue palette and locally hosted Geist variable font. Removed promotional headings, sidebar slogans, summary cards and release footer. The stock list shows all complete location addresses. Creating a group opens its details with the first-placement action; mobile selection scrolls details into view, closing restores row focus, and optional notes are collapsed.
+
+Design rules are recorded in [the design document](design-document.md). Browser checks covered desktop/mobile search and navigation, creating a group and first placement, optional notes, correction reasons, focus restoration, history, settings and the collapsible menu. The existing 22 database/domain checks and production build pass. Hosted release gates above remain open.

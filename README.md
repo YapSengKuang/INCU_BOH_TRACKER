@@ -31,4 +31,6 @@ Tests cover the sample reducer and the actual SQL migration on embedded Postgres
 - Select from 140 imported Incu brands, enable store brands, and manage category/department options. Disabling an option preserves existing records.
 - As owner, manage the private email invitation list, download a complete backup, and test sample recovery.
 
+The UI uses the approved five-colour palette and locally hosted Geist font. See the [design document](Documentation/design-document.md) for layout, typography, wording and interaction rules.
+
 See [setup and deployment](Documentation/setup-and-deployment.md), [verification and remaining release gates](Documentation/sprint-1-status.md), and the original [sprint plan](Documentation/sprint-plan.md).

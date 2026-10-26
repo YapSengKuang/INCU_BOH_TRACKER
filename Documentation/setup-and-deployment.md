@@ -34,7 +34,7 @@ The documented hosting target remains Cloudflare Pages. No Sites registration or
 - Output directory: `dist`
 - Node: 24, or another version supported by the pinned Vite release.
 - Set the three `VITE_` variables in the deployment environment before building. Use a separate Supabase project for preview if writes should be exercised there. A build with all three unset is clearly labelled sample mode; partial configuration reports an error.
-- `public/_headers` supplies security headers and a restrictive production CSP. The optional Google font stylesheets use Google Fonts; system fonts remain available if offline.
+- `public/_headers` supplies security headers and a restrictive production CSP. Geist is served locally from `public/fonts/Geist-Variable.ttf`, with its SIL Open Font License in the same directory. No external font service is required.
 - `public/_redirects` serves the entry page for application URLs. All Sprint 1 sections are in the single-page workspace.
 - Allow the deployed origin in Supabase Auth redirect settings and verify guest browsing, invitation acceptance and owner export on the actual deployment.
 
