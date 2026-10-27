@@ -29,6 +29,7 @@ export const optimisticOperations = new Set([
   'group',
   'location-edit',
   'deleteLocation',
+  'brands-create',
   'brand-enable', 'location-create', 'stock-place',
 ])
 export function writeKey(c: Command) { return `${c.action}:${c.action==='taxon'?c.payload.table+':':''}${c.payload.id}` }
