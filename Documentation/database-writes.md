@@ -15,7 +15,7 @@ Every interactive store write should validate locally, project the change immedi
 | Edit storage location | Locations → Edit | Implemented (commit 8) |
 | Delete storage location | Locations → Delete → Confirm | Implemented (commit 9) |
 | Create brand | Settings → Brands → Add brand | Implemented (commit 10) |
-| Rename or change availability of a brand | Settings → Brands → Manage | Pending |
+| Rename or change availability of a brand | Settings → Brands → Manage | Implemented (commit 11) |
 | Create category | Settings → Categories → Add category | Pending |
 | Edit category or availability | Settings → Categories → Manage | Pending |
 | Create department | Settings → Departments → Add department | Pending |

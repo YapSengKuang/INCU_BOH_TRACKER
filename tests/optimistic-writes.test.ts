@@ -219,3 +219,19 @@ describe('optimistic brands create',()=>{
     expect(h.data.snapshot[table].find(x=>x.id===item.id)).toMatchObject(item)
   })
 })
+
+describe('optimistic brands edit',()=>{
+  it('changes the option immediately while preserving stock groups and unrelated directory data',async()=>{
+    const h=harness();h.setWait();const table='brands' as const
+    const old=h.base.snapshot[table][0],item={id:old.id,name:'Renamed '+old.name,active:false}
+    h.queue.enqueue({action:'taxon',payload:{...item,table}},'editor',h.base)
+    const projected=optimisticView(h.base,h.jobs)
+    expect(projected.snapshot[table].find(x=>x.id===item.id)).toMatchObject(item)
+    expect(projected.snapshot.groups).toEqual(h.base.snapshot.groups)
+    expect(projected.snapshot.placements).toEqual(h.base.snapshot.placements)
+    expect(h.base.snapshot[table].find(x=>x.id===item.id)?.name).not.toBe(item.name)
+    expect(optimisticOperations.has('brands-edit')).toBe(true)
+    h.gate.resolve();await vi.waitFor(()=>expect(h.jobs).toEqual([]))
+    expect(h.data.snapshot[table].find(x=>x.id===item.id)).toMatchObject(item)
+  })
+})
