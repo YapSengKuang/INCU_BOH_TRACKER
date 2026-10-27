@@ -138,3 +138,22 @@ describe('optimistic stock correct',()=>{
     expect(h.data.snapshot.placements).toEqual(projected.placements)
   })
 })
+
+describe('optimistic stock remove',()=>{
+  it('updates only the intended link and keeps unrelated stock while saving',async()=>{
+    const h=harness();h.setWait()
+    const group=h.base.snapshot.groups[0],before=h.base.snapshot.placements.filter(p=>p.groupId===group.id)
+    const source=before[0].locationId,to=h.base.snapshot.locations.find(l=>!before.some(p=>p.locationId===l.id))!.id
+    const c:Command={action:'movement',payload:{id:crypto.randomUUID(),groupId:group.id,kind:'remove',from:source,to:null,reason:'Verified correction',privateNote:'Hidden note'}}
+    h.queue.enqueue(c,'editor',h.base)
+    const projected=optimisticView(h.base,h.jobs).snapshot
+    expect(projected.placements.filter(p=>p.groupId!==group.id)).toEqual(h.base.snapshot.placements.filter(p=>p.groupId!==group.id))
+    expect(projected.placements.some(p=>p.groupId===group.id&&p.locationId===source)).toBe(false)
+    expect(projected.placements.filter(p=>p.groupId===group.id)).toHaveLength(before.length-1)
+    expect(projected.movements.at(-1)?.kind).toBe('remove')
+    expect(JSON.stringify(projected)).not.toContain('Hidden note')
+    expect(optimisticOperations.has('stock-remove')).toBe(true)
+    h.gate.resolve();await vi.waitFor(()=>expect(h.jobs).toEqual([]))
+    expect(h.data.snapshot.placements).toEqual(projected.placements)
+  })
+})

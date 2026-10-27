@@ -9,7 +9,7 @@ Every interactive store write should validate locally, project the change immedi
 | Add another location to stock | Stock details → Also store here | Implemented (commit 3) |
 | Move stock | Stock details → Move | Implemented (commit 4) |
 | Correct a stock location | Stock details → Correct / remove | Implemented (commit 5) |
-| Remove a stock location | Location update → Remove | Pending |
+| Remove a stock location | Location update → Remove | Implemented (commit 6) |
 | Create stock group | Find stock → Add stock group | Pending |
 | Create storage location | Locations → Add location | Implemented; migrated to shared queue in commit 1 |
 | Edit storage location | Locations → Edit | Pending |
