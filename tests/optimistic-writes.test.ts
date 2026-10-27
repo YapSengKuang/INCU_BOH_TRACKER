@@ -63,3 +63,21 @@ describe('shared optimistic writes',()=>{
     expect(optimisticOperations.has('location-create')).toBe(true)
   })
 })
+
+function firstPlacement(h:ReturnType<typeof harness>):Command {
+  const group=h.base.snapshot.groups[0]
+  h.data.snapshot.placements=h.data.snapshot.placements.filter(p=>p.groupId!==group.id)
+  return {action:'movement',payload:{id:crypto.randomUUID(),groupId:group.id,kind:'place',from:null,to:h.base.snapshot.locations[0].id,reason:'',privateNote:'Private staff note'}}
+}
+describe('stock location writes',()=>{
+  it('adds the first location and pending history before confirmation without exposing private notes',async()=>{
+    const h=harness();h.setWait();const c=firstPlacement(h)
+    h.queue.enqueue(c,'editor',h.base)
+    const view=optimisticView(h.base,h.jobs)
+    expect(view.snapshot.placements).toContainEqual({groupId:(c as any).payload.groupId,locationId:(c as any).payload.to})
+    expect(view.snapshot.movements.at(-1)?.id).toBe(c.payload.id)
+    expect(JSON.stringify(view)).not.toContain('Private staff note')
+    expect(optimisticOperations.has('stock-place')).toBe(true)
+    h.gate.resolve();await vi.waitFor(()=>expect(h.jobs).toEqual([]))
+  })
+})

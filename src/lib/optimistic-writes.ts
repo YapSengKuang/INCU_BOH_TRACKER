@@ -22,7 +22,7 @@ export function writeOperation(c: Command, s: Snapshot): string {
 // Each operation is enabled in its own implementation commit; this list is also
 // the executable counterpart of Documentation/database-writes.md.
 export const optimisticOperations = new Set([
-  'brand-enable', 'location-create',
+  'brand-enable', 'location-create', 'stock-place',
 ])
 export function writeKey(c: Command) { return `${c.action}:${c.action==='taxon'?c.payload.table+':':''}${c.payload.id}` }
 export function writeLabel(c: Command, s: Snapshot) {

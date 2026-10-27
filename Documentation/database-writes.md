@@ -5,7 +5,7 @@ Every interactive store write should validate locally, project the change immedi
 | Operation | Entry point | Status |
 | --- | --- | --- |
 | Add existing brands to the store | Settings → Brands → Add to store | Implemented (commit 1) |
-| Add first location to stock | Stock details → Add first location | Pending |
+| Add first location to stock | Stock details → Add first location | Implemented (commit 2) |
 | Add another location to stock | Stock details → Also store here | Pending |
 | Move stock | Stock details → Move | Pending |
 | Correct a stock location | Stock details → Correct / remove | Pending |
