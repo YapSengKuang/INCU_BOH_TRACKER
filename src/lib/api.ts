@@ -40,9 +40,11 @@ export async function getRole():Promise<Role>{
   const member=await getDocFromServer(doc(db,'stores',storeId,'members',auth.currentUser.uid))
   return member.exists()?member.data().role as Role:'guest'
 }
-export async function save(request:Request,role:Role):Promise<Snapshot>{
+export async function save(request:Request,role:Role,expectedSession=writeSession()):Promise<Snapshot>{
   ready();if(!db)return saveDemo(request,role)
-  await applyFirebaseCommand(db,storeId,request,await actor())
+  const user=await actor()
+  if(user.uid!==expectedSession)throw new Error('The signed-in account changed. Review this change before saving again.')
+  await applyFirebaseCommand(db,storeId,request,user)
   return loadSnapshot()
 }
 export async function loadStaff(role:Role):Promise<Staff[]>{

@@ -121,8 +121,9 @@ export class OptimisticWrites {
         try {
           if(job.session!==this.io.session())throw new Error('The signed-in account changed. Sign in with the original account to retry.')
           if(!job.request){
-            const latest=await this.io.load(job.role);this.io.confirmed(latest)
+            const latest=await this.io.load(job.role)
             if(job.session!==this.io.session())throw new Error('The signed-in account changed.')
+            this.io.confirmed(latest)
             if(writeTarget(latest,job.command)!==job.before)throw new Error('This record changed while your request was waiting. Review its latest values before saving again.')
             projectWrite(latest,job.command,job.role,job.id,job.createdAt)
             job.request={...job.command,requestId:job.id,expectedRevision:latest.snapshot.store.revision}

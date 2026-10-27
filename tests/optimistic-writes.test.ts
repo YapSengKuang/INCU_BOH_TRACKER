@@ -328,3 +328,24 @@ describe('optimistic staff access removal',()=>{
     expect(optimisticOperations.has('revoke')).toBe(true)
   })
 })
+
+describe('cross-operation failure isolation',()=>{
+ it('does not send a dependent group if its pending brand failed to save',async()=>{
+  const h=harness(),original=h.io.save,brand=h.base.snapshot.brands.find(b=>!b.active)!
+  const save=vi.fn(async(r:Request,role:any)=>{if(r.action==='taxon')throw new Error('Brand rejected');return original(r,role)})
+  h.io.save=save
+  h.queue.enqueue({action:'taxon',payload:{table:'brands',id:brand.id,name:brand.name,active:true}},'editor',h.base)
+  const group={id:'dependent-group',brandId:brand.id,categoryId:h.base.snapshot.categories[0].id,departmentId:h.base.snapshot.departments[0].id}
+  h.queue.enqueue({action:'group',payload:group},'editor',h.base)
+  await vi.waitFor(()=>expect(h.jobs.every(j=>j.status==='failed')).toBe(true))
+  expect(save).toHaveBeenCalledTimes(1)
+  expect(optimisticView(h.base,h.jobs).snapshot.groups).not.toContainEqual(group)
+ })
+ it('does not publish a late snapshot or send a request after an account switch during loading',async()=>{
+  const h=harness(),gate=deferred<WriteView>(),confirmed=vi.spyOn(h.io,'confirmed')
+  h.io.load=()=>gate.promise
+  h.queue.enqueue(add('late'),'editor',h.base);h.changeSession();gate.resolve(structuredClone(h.base))
+  await vi.waitFor(()=>expect(h.jobs[0]?.status).toBe('failed'))
+  expect(confirmed).not.toHaveBeenCalled();expect(h.requests).toEqual([])
+ })
+})
