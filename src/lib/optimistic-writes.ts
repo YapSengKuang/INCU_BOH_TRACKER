@@ -36,10 +36,11 @@ export const optimisticOperations = new Set([
   'departments-create',
   'departments-edit',
   'invite',
+  'revoke',
   'brand-enable', 'location-create', 'stock-place',
 ])
 export function writeKey(c: Command) { return `${c.action}:${c.action==='taxon'?c.payload.table+':':''}${c.payload.id}` }
-export function writeLabel(c: Command, s: Snapshot) {
+export function writeLabel(c: Command, s: Snapshot, staff:Staff[]=[]) {
   switch(c.action) {
     case 'taxon': return `${s[c.payload.table].some(x=>x.id===c.payload.id)?'Update':'Add'} ${c.payload.table==='brands'?'brand':c.payload.table==='categories'?'category':'department'}: ${c.payload.name}`
     case 'location': return `${s.locations.some(x=>x.id===c.payload.id)?'Edit':'Add'} location ${c.payload.code}`
@@ -47,7 +48,7 @@ export function writeLabel(c: Command, s: Snapshot) {
     case 'group': return 'Create stock group'
     case 'movement': return ({place:'Add first stock location',also:'Add another stock location',move:'Move stock',correct:'Correct stock location',remove:'Remove stock location'})[c.payload.kind]
     case 'invite': return `Invite ${c.payload.email}`
-    case 'revoke': return 'Remove staff access'
+    case 'revoke': return `Remove access for ${staff.find(p=>p.id===c.payload.id)?.email??'staff member'}`
   }
 }
 function stable(value:unknown):string { return JSON.stringify(value,(_key,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.keys(item).sort().map(key=>[key,item[key]])):item) }
@@ -100,7 +101,7 @@ export class OptimisticWrites {
     const retained=this.jobs.filter(j=>writeKey(j.command)!==key||j.status!=='failed')
     const view=optimisticView(base,retained), id=crypto.randomUUID(), createdAt=new Date().toISOString()
     projectWrite(view,command,role,id,createdAt) // Local validation before closing the form.
-    const job:WriteJob={id,command:structuredClone(command),role,session:this.io.session(),label:writeLabel(command,view.snapshot),createdAt,before:writeTarget(view,command),status:'queued'}
+    const job:WriteJob={id,command:structuredClone(command),role,session:this.io.session(),label:writeLabel(command,view.snapshot,view.staff),createdAt,before:writeTarget(view,command),status:'queued'}
     this.jobs=[...retained,job];this.publish();void this.drain()
   }
   retry(id:string,role:Role) {

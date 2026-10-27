@@ -21,7 +21,7 @@ Every interactive store write should validate locally, project the change immedi
 | Create department | Settings → Departments → Add department | Implemented (commit 14) |
 | Edit department or availability | Settings → Departments → Manage | Implemented (commit 15) |
 | Invite staff | Settings → Staff → Invite staff | Implemented (commit 16) |
-| Revoke staff or cancel invitation | Settings → Staff → Remove access | Pending |
+| Revoke staff or cancel invitation | Settings → Staff → Remove access | Implemented (commit 17) |
 | Accept an invitation | Google sign-in → invitation claim | Pending; pending UI must never grant permissions |
 
 ## Other writes and reads

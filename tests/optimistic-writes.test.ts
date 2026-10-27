@@ -312,3 +312,19 @@ describe('optimistic staff invitations',()=>{
     h.gate.resolve();await vi.waitFor(()=>expect(h.jobs).toEqual([]))
   })
 })
+
+describe('optimistic staff access removal',()=>{
+  it('hides the selected staff row immediately, restores it on rejection, and never removes the owner',async()=>{
+    const h=harness(),member={id:'member:staff-user',email:'staff@example.invalid',role:'editor' as const,status:'active' as const}
+    h.data.staff.push(member)
+    h.io.save=async()=>{throw new Error('Access removal rejected')}
+    h.queue.enqueue({action:'revoke',payload:{id:member.id}},'owner',h.base)
+    expect(optimisticView(h.base,h.jobs).staff).not.toContainEqual(member)
+    expect(h.base.staff).toContainEqual(member)
+    await vi.waitFor(()=>expect(h.jobs[0]?.status).toBe('failed'))
+    expect(optimisticView(h.base,h.jobs).staff).toContainEqual(member)
+    const owner=h.base.staff.find(p=>p.role==='owner')!
+    expect(()=>h.queue.enqueue({action:'revoke',payload:{id:owner.id}},'owner',h.base)).toThrow('Owner access')
+    expect(optimisticOperations.has('revoke')).toBe(true)
+  })
+})
