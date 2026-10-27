@@ -171,3 +171,20 @@ describe('optimistic stock group creation',()=>{
     expect(h.data.snapshot.groups).toContainEqual(group)
   })
 })
+
+describe('optimistic storage location edits',()=>{
+  it('updates the visible address immediately and blocks overwriting a newer remote edit',async()=>{
+    const h=harness(),original=h.base.snapshot.locations[0],base=structuredClone(h.base)
+    const command:Command={action:'location',payload:{...original,code:'MY-EDIT'}}
+    h.io.load=async()=>{
+      h.data.snapshot.locations=h.data.snapshot.locations.map(l=>l.id===original.id?{...l,code:'REMOTE-EDIT'}:l)
+      return {snapshot:structuredClone(h.data.snapshot),staff:structuredClone(h.data.staff)}
+    }
+    h.queue.enqueue(command,'editor',base)
+    expect(optimisticView(base,h.jobs).snapshot.locations.find(l=>l.id===original.id)?.code).toBe('MY-EDIT')
+    await vi.waitFor(()=>expect(h.jobs[0]?.status).toBe('failed'))
+    expect(h.requests).toHaveLength(0)
+    expect(optimisticView(h.base,h.jobs).snapshot.locations.find(l=>l.id===original.id)?.code).toBe('REMOTE-EDIT')
+    expect(optimisticOperations.has('location-edit')).toBe(true)
+  })
+})

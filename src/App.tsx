@@ -19,15 +19,15 @@ function formatDate(at:string, s:Snapshot) { return new Intl.DateTimeFormat('en-
 export default function App() {
   const [confirmed,setConfirmed] = useState<Snapshot|null>(null), [role,setRole] = useState<Role>('guest'), [page,setPage] = useState<Page>('directory'), [modal,setModal] = useState<Modal|null>(null), [error,setError] = useState(''), [notice,setNotice] = useState(''), [loading,setLoading] = useState(true), [refreshing,setRefreshing] = useState(false)
   const [query,setQuery] = useState(''), [brand,setBrand] = useState(''), [category,setCategory] = useState(''), [department,setDepartment] = useState(''), [area,setArea] = useState(''), [selected,setSelected] = useState<string|null>(null), [confirmedStaff,setStaff] = useState<Staff[]>([]), [settingsTab,setSettingsTab] = useState<'brands'|'categories'|'departments'|'staff'|'data'>('brands'), [settingQuery,setSettingQuery] = useState(''), [loginBusy,setLoginBusy] = useState(false), [loginMessage,setLoginMessage] = useState('')
+  const confirmedRef = useRef<Snapshot|null>(null)
   const setS = useCallback((update: Snapshot | ((previous: Snapshot|null) => Snapshot|null)) => {
-    setConfirmed(previous => {
-      const next = typeof update === 'function' ? update(previous) : update
-      return previous && next && previous.store.id === next.store.id && next.store.revision < previous.store.revision ? previous : next
-    })
+    const previous=confirmedRef.current, next=typeof update==='function'?update(previous):update
+    if(previous&&next&&previous.store.id===next.store.id&&next.store.revision<previous.store.revision)return
+    confirmedRef.current=next;setConfirmed(next)
   }, [])
   const [sidebarCollapsed,setSidebarCollapsed] = useState(false)
   const [exportBusy,setExportBusy] = useState(false)
-  const writes = useOptimisticWrites(view=>{setS(view.snapshot);setStaff(view.staff)},label=>setNotice(`${label} saved.`))
+  const writes = useOptimisticWrites(view=>{if(view.snapshot.store.revision>=(confirmedRef.current?.store.revision??-1)){setS(view.snapshot);setStaff(view.staff)}},label=>setNotice(`${label} saved.`))
   const view = confirmed ? optimisticView({snapshot:confirmed,staff:confirmedStaff},writes.jobs) : null
   const s = view?.snapshot ?? null, staff = view?.staff ?? confirmedStaff
   const activeWrites = writes.jobs.filter(j=>j.status!=='failed')
@@ -50,7 +50,7 @@ export default function App() {
     })
     return ()=>{active=false;unsubscribe()}
   },[])
-  useEffect(()=>{loadStaff(role).then(setStaff).catch(e=>setError(e.message))},[role,s?.store.revision])
+  useEffect(()=>{let active=true;const revision=s?.store.revision;loadStaff(role).then(rows=>{if(active&&confirmedRef.current?.store.revision===revision)setStaff(rows)}).catch(e=>{if(active)setError(e.message)});return()=>{active=false}},[role,s?.store.revision])
   useEffect(()=>{if(role==='guest' && page==='settings')setPage('directory');if(role!=='owner' && (settingsTab==='staff'||settingsTab==='data'))setSettingsTab('brands')},[role,page,settingsTab])
   useEffect(()=>{if(!notice)return; const id=setTimeout(()=>setNotice(''),6000); return()=>clearTimeout(id)},[notice])
   useEffect(()=>{if(!isDemo)return; const listener=()=>{refresh().catch(e=>setError(e.message))}; window.addEventListener('storage',listener); return()=>window.removeEventListener('storage',listener)},[refresh])
@@ -77,7 +77,7 @@ export default function App() {
   function reviewWrite(job:WriteJob){
     const command=job.command
     switch(command.action){
-      case 'location':setModal({type:'location',draft:command.payload});break
+      case 'location':setModal({type:'location',draft:command.payload,item:confirmed!.locations.some(l=>l.id===command.payload.id)?command.payload:undefined});break
       case 'taxon':setModal({type:'taxon',table:command.payload.table,item:command.payload});break
       case 'group':setModal({type:'group',draft:command.payload});break
       case 'invite':setModal({type:'invite',draft:command.payload});break

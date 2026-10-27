@@ -12,7 +12,7 @@ Every interactive store write should validate locally, project the change immedi
 | Remove a stock location | Location update → Remove | Implemented (commit 6) |
 | Create stock group | Find stock → Add stock group | Implemented (commit 7) |
 | Create storage location | Locations → Add location | Implemented; migrated to shared queue in commit 1 |
-| Edit storage location | Locations → Edit | Pending |
+| Edit storage location | Locations → Edit | Implemented (commit 8) |
 | Delete storage location | Locations → Delete → Confirm | Pending |
 | Create brand | Settings → Brands → Add brand | Pending |
 | Rename or change availability of a brand | Settings → Brands → Manage | Pending |
