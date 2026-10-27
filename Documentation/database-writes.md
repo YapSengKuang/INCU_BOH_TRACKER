@@ -17,7 +17,7 @@ Every interactive store write should validate locally, project the change immedi
 | Create brand | Settings → Brands → Add brand | Implemented (commit 10) |
 | Rename or change availability of a brand | Settings → Brands → Manage | Implemented (commit 11) |
 | Create category | Settings → Categories → Add category | Implemented (commit 12) |
-| Edit category or availability | Settings → Categories → Manage | Pending |
+| Edit category or availability | Settings → Categories → Manage | Implemented (commit 13) |
 | Create department | Settings → Departments → Add department | Pending |
 | Edit department or availability | Settings → Departments → Manage | Pending |
 | Invite staff | Settings → Staff → Invite staff | Pending |
