@@ -291,6 +291,7 @@ main { max-width: 1550px; margin: auto; padding: 28px 32px 40px; }
 .location-save-error > div:first-child { flex: 1; min-width: 200px; }
 .location-save-error p { margin: 4px 0; }
 .location-retry-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.generated-codes { display: block; padding: 12px; border: 1px solid var(--line); border-radius: 5px; background: var(--tint); color: var(--blue); font-size: 14px; line-height: 1.8; overflow-wrap: anywhere; max-height: 120px; overflow-y: auto; }
 .help-content > p { margin-bottom: 24px; }
 .help-content > div:not(.info-box) { display: flex; align-items: flex-start; gap: 16px; margin: 22px 0; }
 .help-content svg { color: var(--blue); margin-top: 3px; }

@@ -349,3 +349,50 @@ describe('cross-operation failure isolation',()=>{
   expect(confirmed).not.toHaveBeenCalled();expect(h.requests).toEqual([])
  })
 })
+
+describe('bulk location queueing',()=>{
+ it('displays the whole set immediately and saves each location with its own retry ID',async()=>{
+  const h=harness();h.setWait()
+  h.queue.enqueueMany([add('batch-one'),add('batch-two'),add('batch-three')],'editor',h.base)
+  expect(h.jobs).toHaveLength(3)
+  expect(optimisticView(h.base,h.jobs).snapshot.locations.map(l=>l.id)).toEqual(expect.arrayContaining(['batch-one','batch-two','batch-three']))
+  await vi.waitFor(()=>expect(h.requests).toHaveLength(1))
+  h.gate.resolve();await vi.waitFor(()=>expect(h.jobs).toEqual([]))
+  expect(new Set(h.requests.map(r=>r.requestId)).size).toBe(3)
+  expect(h.data.snapshot.locations.map(l=>l.id)).toEqual(expect.arrayContaining(['batch-one','batch-two','batch-three']))
+ })
+ it('rejects an invalid set before publishing any rows or starting any requests',()=>{
+  const h=harness(),one=add('duplicate-code')
+  const two:Command={action:'location',payload:{...(one as Extract<Command,{action:'location'}>).payload,id:'different-id'}}
+  expect(()=>h.queue.enqueueMany([one,two],'editor',h.base)).toThrow('already in use')
+  expect(h.jobs).toEqual([]);expect(h.requests).toEqual([])
+ })
+ it('keeps successful locations when one save fails and safely retries after later saves advance the revision',async()=>{
+  const h=harness(),original=h.io.save;let failed=false
+  h.io.save=async(r,role)=>{if(r.payload.id==='middle'&&!failed){failed=true;throw new Error('Connection failed')}return original(r,role)}
+  h.queue.enqueueMany([add('first'),add('middle'),add('last')],'editor',h.base)
+  await vi.waitFor(()=>{expect(h.jobs).toHaveLength(1);expect(h.jobs[0].status).toBe('failed')})
+  expect(h.data.snapshot.locations.map(l=>l.id)).toEqual(expect.arrayContaining(['first','last']))
+  expect(h.data.snapshot.locations.some(l=>l.id==='middle')).toBe(false)
+  const id=h.jobs[0].id;h.queue.retry(id,'editor')
+  await vi.waitFor(()=>expect(h.jobs).toEqual([]))
+  expect(h.data.snapshot.locations.filter(l=>l.id==='middle')).toHaveLength(1)
+  expect(h.requests.filter(r=>r.payload.id==='middle').every(r=>r.requestId===id)).toBe(true)
+ })
+})
+
+describe('safe revision rebasing',()=>{
+ it('never rebases an edit over a newer value written after the initial read',async()=>{
+  const h=harness(),original=h.io.save,location=h.base.snapshot.locations[0]
+  h.io.save=async(r,role)=>{
+    h.data.snapshot.locations=h.data.snapshot.locations.map(l=>l.id===location.id?{...l,code:'REMOTE-NEW'}:l)
+    h.data.snapshot.store.revision++
+    return original(r,role)
+  }
+  h.queue.enqueue({action:'location',payload:{...location,code:'MY-NEW'}},'editor',h.base)
+  await vi.waitFor(()=>expect(h.jobs[0]?.status).toBe('failed'))
+  expect(h.requests).toHaveLength(1)
+  expect(h.jobs[0].error).toContain('record changed')
+  expect(h.data.snapshot.locations.find(l=>l.id===location.id)?.code).toBe('REMOTE-NEW')
+ })
+})

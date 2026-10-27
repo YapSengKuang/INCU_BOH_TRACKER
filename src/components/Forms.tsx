@@ -3,17 +3,43 @@ import type { Command, Kind, Location, MoveKind, Role, Snapshot, StockGroup, Tax
 import { groupLabel, locationLabel } from '../lib/model'
 import { Field, SaveForm } from './Dialog'
 import { isDemo } from '../lib/api'
+import { createLocationBatch, generateLocationCodes, MAX_LOCATION_QUANTITY } from '../lib/location-batches'
 export type FormProps = { s: Snapshot; role: Role; onSaved: (s: Snapshot) => void; onRefresh: () => Promise<Snapshot>; onSubmitCommand?: (command: Command) => boolean | void }
 export function GroupForm(props: FormProps & { draft?: Extract<Command,{action:'group'}>['payload'] }) {
   const { s } = props
   const [id] = useState(() => props.draft?.id ?? crypto.randomUUID()), [brandId, setBrand] = useState(props.draft?.brandId ?? ''), [categoryId, setCategory] = useState(props.draft?.categoryId ?? ''), [departmentId, setDepartment] = useState(props.draft?.departmentId ?? '')
   return <SaveForm {...props} revision={s.store.revision} command={() => ({ action: 'group', payload: { id, brandId, categoryId, departmentId } })} label="Create stock group"><Field label="Brand"><select required value={brandId} onChange={e => setBrand(e.target.value)}><option value="">Choose a store brand</option>{s.brands.filter(x => x.active).sort((a,b) => a.name.localeCompare(b.name)).map(x => <option key={x.id} value={x.id}>{x.name}</option>)}</select></Field><div className="form-grid"><Field label="Category"><select required value={categoryId} onChange={e => setCategory(e.target.value)}><option value="">Choose category</option>{s.categories.filter(x => x.active).map(x => <option key={x.id} value={x.id}>{x.name}</option>)}</select></Field><Field label="Department"><select required value={departmentId} onChange={e => setDepartment(e.target.value)}><option value="">Choose department</option>{s.departments.filter(x => x.active).map(x => <option key={x.id} value={x.id}>{x.name}</option>)}</select></Field></div><div className="info-box">After creating this group, add its first location. Missing a brand? Enable it in Settings → Brands.</div></SaveForm>
 }
-export function LocationForm(props: FormProps & { location?: Location; draft?: Location }) {
-  const { s, location: old } = props
-  const initial = old ?? props.draft
-  const [id] = useState(() => initial?.id ?? crypto.randomUUID()), [area, setArea] = useState(initial?.area ?? 'Sales floor'), [code, setCode] = useState(initial?.code ?? ''), [kind, setKind] = useState<Kind>(initial?.kind ?? 'Cabinet'), [parentId, setParent] = useState(initial?.parentId ?? '')
-  return <SaveForm {...props} revision={s.store.revision} command={() => ({ action: 'location', payload: { id, area: area.trim(), code: code.trim(), kind, parentId: parentId || null } })} label={old ? 'Update location' : 'Create location'}>{props.draft&&s.locations.some(l=>l.id===id)&&<div className="info-box">Currently saved: {locationLabel(s,id)}. Review these details before trying again.</div>}<Field label="Area"><input required maxLength={160} list="areas" value={area} onChange={e => { setArea(e.target.value); setParent('') }}/><datalist id="areas">{[...new Set(['Sales floor', 'Back of House', 'Birkenstock room', "men's fit", ...s.locations.map(x=>x.area)])].map(x => <option key={x}>{x}</option>)}</datalist></Field><div className="form-grid"><Field label="Storage type"><select value={kind} onChange={e => setKind(e.target.value as Kind)}>{['Cabinet','Rack','Shelf','Drawer','Room','Wall','Tub','Area'].map(x => <option key={x}>{x}</option>)}</select></Field><Field label="Unique code" hint="Unique across the store, e.g. C03 or D02."><input required maxLength={160} value={code} onChange={e => setCode(e.target.value.toUpperCase())} placeholder="C03"/></Field></div><Field label="Inside a storage unit (optional)"><select value={parentId} onChange={e => setParent(e.target.value)}><option value="">Standalone location</option>{s.locations.filter(x => !x.parentId && x.id !== id && x.area === area).map(x => <option key={x.id} value={x.id}>{x.kind} {x.code}</option>)}</select></Field><div className="info-box">Add a cabinet first, then create each drawer or shelf and choose the cabinet here. Earlier history keeps the original location names.</div></SaveForm>
+export function LocationForm(props: FormProps & { location?: Location; draft?: Location; onCreateMany: (locations:Location[])=>void }) {
+  const { s, location: old } = props, initial = old ?? props.draft
+  const [id] = useState(() => initial?.id ?? crypto.randomUUID())
+  const [area,setArea] = useState(initial?.area ?? 'Sales floor'), [kind,setKind] = useState<Kind>(initial?.kind ?? 'Cabinet')
+  const [code,setCode] = useState(initial?.code ?? ''), [parentId,setParent] = useState(initial?.parentId ?? '')
+  const [quantity,setQuantity] = useState('1'), [automatic,setAutomatic] = useState(!initial)
+  const count = Number(quantity), generate = !old && automatic
+  let codes:string[] = [], codeError = ''
+  if(!old){
+    try { codes=generate?generateLocationCodes(s.locations,kind,count):[code] }
+    catch(e){ codeError=(e as Error).message }
+  }
+  return <SaveForm {...props} revision={s.store.revision}
+    command={()=>({action:'location',payload:{id,area:area.trim(),code:old?code.trim():(codes[0]??''),kind,parentId:parentId||null}})}
+    onSubmitCommand={old?props.onSubmitCommand:command=>{
+      if(command.action!=='location')return false
+      if(codeError)throw new Error(codeError)
+      props.onCreateMany(createLocationBatch(command.payload,codes,count))
+    }} label={old?'Update location':Number.isInteger(count)&&count>1?`Create ${count} locations`:'Create location'}>
+    {props.draft&&s.locations.some(l=>l.id===id)&&<div className="info-box">Currently saved: {locationLabel(s,id)}. Review these details before trying again.</div>}
+    <Field label="Area"><input required maxLength={160} list="areas" value={area} onChange={e=>{setArea(e.target.value);setParent('')}}/><datalist id="areas">{[...new Set(['Sales floor','Back of House','Birkenstock room',"men's fit",...s.locations.map(x=>x.area)])].map(x=><option key={x}>{x}</option>)}</datalist></Field>
+    <div className="form-grid"><Field label="Storage type"><select value={kind} onChange={e=>setKind(e.target.value as Kind)}>{['Cabinet','Rack','Shelf','Drawer','Room','Wall','Tub','Area'].map(x=><option key={x}>{x}</option>)}</select></Field>
+      {old?<Field label="Unique code" hint="Unique across the store."><input required maxLength={160} value={code} onChange={e=>setCode(e.target.value.toUpperCase())}/></Field>:<Field label="Quantity"><input type="number" inputMode="numeric" required min="1" max={MAX_LOCATION_QUANTITY} step="1" value={quantity} onChange={e=>{setQuantity(e.target.value);if(Number(e.target.value)>1)setAutomatic(true)}}/></Field>}
+    </div>
+    <Field label="Inside a storage unit (optional)"><select value={parentId} onChange={e=>setParent(e.target.value)}><option value="">Standalone location</option>{s.locations.filter(x=>!x.parentId&&x.id!==id&&x.area===area).map(x=><option key={x.id} value={x.id}>{x.kind} {x.code}</option>)}</select></Field>
+    {!old&&<>
+      <label className="check"><input type="checkbox" checked={automatic} disabled={count>1} onChange={e=>setAutomatic(e.target.checked)}/>Generate codes automatically</label>
+      {automatic?<Field label="Generated codes" hint="Codes are unique across the store."><output className="generated-codes" aria-label="Generated codes">{codeError||codes.join(', ')}</output></Field>:<Field label="Unique code" hint="Unique across the store, e.g. C03 or D02."><input required maxLength={160} value={code} onChange={e=>setCode(e.target.value.toUpperCase())} placeholder="C03"/></Field>}
+    </>}
+  </SaveForm>
 }
 export function MovementForm(props: FormProps & { group: StockGroup; initialKind: MoveKind; initialFrom?: string; draft?: Extract<Command,{action:'movement'}>['payload'] }) {
   const { s, group } = props

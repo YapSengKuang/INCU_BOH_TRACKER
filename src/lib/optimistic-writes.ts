@@ -1,4 +1,5 @@
 import { applyDemo } from './demo'
+import { ConflictError } from './model'
 import type { Command, Request, Role, Snapshot, Staff } from './model'
 
 export type WriteView = { snapshot: Snapshot; staff: Staff[] }
@@ -93,16 +94,25 @@ export class OptimisticWrites {
   private running=false
   constructor(private io:{load:(role:Role)=>Promise<WriteView>;save:(r:Request,role:Role)=>Promise<WriteView>;session:()=>string;confirmed:(view:WriteView)=>void;changed:(jobs:WriteJob[])=>void;saved:(label:string)=>void}){}
   private publish(){this.io.changed(this.jobs.map(j=>({...j})))}
-  enqueue(command:Command,role:Role,base:WriteView) {
+  enqueue(command:Command,role:Role,base:WriteView) { this.enqueueMany([command],role,base) }
+  enqueueMany(commands:readonly Command[],role:Role,base:WriteView) {
     if(role==='guest') throw new Error('Only invited staff can save changes.')
-    const key=writeKey(command)
-    // Don't submit the same entity twice while its request is in flight.
-    if(this.jobs.some(j=>writeKey(j.command)===key&&j.status!=='failed')) throw new Error('This change is still saving. Try again after it finishes.')
-    const retained=this.jobs.filter(j=>writeKey(j.command)!==key||j.status!=='failed')
-    const view=optimisticView(base,retained), id=crypto.randomUUID(), createdAt=new Date().toISOString()
-    projectWrite(view,command,role,id,createdAt) // Local validation before closing the form.
-    const job:WriteJob={id,command:structuredClone(command),role,session:this.io.session(),label:writeLabel(command,view.snapshot,view.staff),createdAt,before:writeTarget(view,command),status:'queued'}
-    this.jobs=[...retained,job];this.publish();void this.drain()
+    if(!commands.length)return
+    const keys=new Set(commands.map(writeKey))
+    if(keys.size!==commands.length)throw new Error('Each change needs a different record.')
+    if(this.jobs.some(j=>keys.has(writeKey(j.command))&&j.status!=='failed'))throw new Error('A selected change is still saving. Try again after it finishes.')
+    const retained=this.jobs.filter(j=>!keys.has(writeKey(j.command))||j.status!=='failed')
+    let view=optimisticView(base,retained)
+    const added:WriteJob[]=[]
+    // Validate the whole set before publishing anything or starting a request.
+    // Each location still gets its own retry ID and confirmation in the queue.
+    for(const command of commands){
+      const id=crypto.randomUUID(),createdAt=new Date().toISOString()
+      const projected=projectWrite(view,command,role,id,createdAt)
+      added.push({id,command:structuredClone(command),role,session:this.io.session(),label:writeLabel(command,view.snapshot,view.staff),createdAt,before:writeTarget(view,command),status:'queued'})
+      view=projected
+    }
+    this.jobs=[...retained,...added];this.publish();void this.drain()
   }
   retry(id:string,role:Role) {
     const job=this.jobs.find(j=>j.id===id&&j.status==='failed')
@@ -128,9 +138,24 @@ export class OptimisticWrites {
             projectWrite(latest,job.command,job.role,job.id,job.createdAt)
             job.request={...job.command,requestId:job.id,expectedRevision:latest.snapshot.store.revision}
           }
-          // Retries keep the exact request and revision: receipts confirm an
-          // already committed write, and stale uncommitted edits are rejected.
-          const confirmed=await this.io.save(job.request,job.role)
+          // Start retries with the original request and revision so receipts
+          // can confirm a committed write before considering any safe rebase.
+          let confirmed:WriteView
+          try{confirmed=await this.io.save(job.request,job.role)}
+          catch(error){
+            if(!(error instanceof ConflictError))throw error
+            // Receipts are checked before revision conflicts by the backend, so
+            // this exact request did not commit. A later successful queued write
+            // may have advanced the revision: rebase once only if the edited
+            // record still matches, then validate every relationship again.
+            const latest=await this.io.load(job.role)
+            if(job.session!==this.io.session())throw new Error('The signed-in account changed.')
+            this.io.confirmed(latest)
+            if(writeTarget(latest,job.command)!==job.before)throw new Error('This record changed while saving. Review its latest values before trying again.')
+            projectWrite(latest,job.command,job.role,job.id,job.createdAt)
+            job.request={...job.request,expectedRevision:latest.snapshot.store.revision}
+            confirmed=await this.io.save(job.request,job.role)
+          }
           if(job.session!==this.io.session())throw new Error('The signed-in account changed.')
           this.io.confirmed(confirmed)
           this.jobs=this.jobs.filter(j=>j!==job);this.io.saved(job.label)
