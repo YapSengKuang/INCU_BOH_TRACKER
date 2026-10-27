@@ -188,3 +188,18 @@ describe('optimistic storage location edits',()=>{
     expect(optimisticOperations.has('location-edit')).toBe(true)
   })
 })
+
+describe('optimistic storage location deletion',()=>{
+  it('removes only an empty location immediately and restores it if the server rejects deletion',async()=>{
+    const h=harness(),s=h.base.snapshot
+    const empty=s.locations.find(l=>!s.placements.some(p=>p.locationId===l.id)&&!s.locations.some(c=>c.parentId===l.id))!
+    h.io.save=async()=>{throw new Error('Permission revoked')}
+    h.queue.enqueue({action:'deleteLocation',payload:{id:empty.id}},'editor',h.base)
+    expect(optimisticView(h.base,h.jobs).snapshot.locations.some(l=>l.id===empty.id)).toBe(false)
+    await vi.waitFor(()=>expect(h.jobs[0]?.status).toBe('failed'))
+    expect(optimisticView(h.base,h.jobs).snapshot.locations).toEqual(h.base.snapshot.locations)
+    const occupied=s.placements[0].locationId
+    expect(()=>h.queue.enqueue({action:'deleteLocation',payload:{id:occupied}},'editor',h.base)).toThrow('stock links')
+    expect(optimisticOperations.has('deleteLocation')).toBe(true)
+  })
+})
