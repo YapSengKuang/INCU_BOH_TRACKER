@@ -157,3 +157,17 @@ describe('optimistic stock remove',()=>{
     expect(h.data.snapshot.placements).toEqual(projected.placements)
   })
 })
+
+describe('optimistic stock group creation',()=>{
+  it('chains a group behind an unconfirmed brand and selects it before server confirmation',async()=>{
+    const h=harness();h.setWait();const brand=h.base.snapshot.brands.find(b=>!b.active)!
+    h.queue.enqueue({action:'taxon',payload:{table:'brands',id:brand.id,name:brand.name,active:true}},'editor',h.base)
+    const group={id:'new-group',brandId:brand.id,categoryId:h.base.snapshot.categories[0].id,departmentId:h.base.snapshot.departments[0].id}
+    h.queue.enqueue({action:'group',payload:group},'editor',h.base)
+    expect(optimisticView(h.base,h.jobs).snapshot.groups).toContainEqual(group)
+    expect(h.base.snapshot.groups).not.toContainEqual(group)
+    expect(optimisticOperations.has('group')).toBe(true)
+    h.gate.resolve();await vi.waitFor(()=>expect(h.jobs).toEqual([]))
+    expect(h.data.snapshot.groups).toContainEqual(group)
+  })
+})
