@@ -15,7 +15,7 @@ export function Dialog({ title, subtitle, onClose, children }: { title: string; 
   }, [onClose])
   return <dialog ref={ref} className="dialog" onClick={e => { if (e.target === e.currentTarget) { const r = e.currentTarget.getBoundingClientRect(); if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) onClose() } }}><div className="dialog-head"><div><h2>{title}</h2>{subtitle && <p className="muted">{subtitle}</p>}</div><button type="button" className="icon-btn" onClick={onClose} aria-label="Close dialog"><X size={20}/></button></div>{children}</dialog>
 }
-export function SaveForm({ children, command, revision, role, onSaved, onRefresh, label = 'Save changes' }: { children: ReactNode; command: () => Command; revision: number; role: Role; onSaved: (s: Snapshot) => void; onRefresh: () => Promise<Snapshot>; label?: string }) {
+export function SaveForm({ children, command, revision, role, onSaved, onRefresh, onSubmitCommand, label = 'Save changes' }: { children: ReactNode; command: () => Command; revision: number; role: Role; onSubmitCommand?: (command: Command) => void; onSaved: (s: Snapshot) => void; onRefresh: () => Promise<Snapshot>; label?: string }) {
   const [busy, setBusy] = useState(false), [error, setError] = useState(''), [conflict, setConflict] = useState(false), [expected, setExpected] = useState(revision)
   const last = useRef<{ signature: string; id: string } | null>(null)
   const locked = useRef(false)
@@ -24,7 +24,9 @@ export function SaveForm({ children, command, revision, role, onSaved, onRefresh
     if (locked.current) return
     locked.current = true; setBusy(true); setError('')
     try {
-      const c = command(), signature = JSON.stringify({ ...c, expected })
+      const c = command()
+      if (onSubmitCommand) { onSubmitCommand(c); return }
+      const signature = JSON.stringify({ ...c, expected })
       if (last.current?.signature !== signature) last.current = { signature, id: crypto.randomUUID() }
       onSaved(await save({ ...c, requestId: last.current.id, expectedRevision: expected }, role))
     } catch (e) { setError(e instanceof Error ? e.message : 'Could not save. Your entry is still here. Try again.'); setConflict(e instanceof ConflictError) }

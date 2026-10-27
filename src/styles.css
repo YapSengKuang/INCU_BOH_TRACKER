@@ -285,6 +285,12 @@ main { max-width: 1550px; margin: auto; padding: 28px 32px 40px; }
 .form-error, .global-error { background: var(--notice); color: #704324; border-left: 3px solid var(--orange); border-radius: 4px; padding: 13px 16px; font-size: 13px; line-height: 1.7; }
 .global-error { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .toast { position: fixed; bottom: 24px; right: 24px; z-index: 20; display: flex; align-items: center; gap: 10px; max-width: calc(100vw - 32px); padding: 14px 20px; border-radius: 6px; background: var(--blue); color: white; box-shadow: 0 5px 24px #004e8926; font-size: 14px; }
+.location-sync { display: flex; align-items: center; gap: 10px; padding: 12px 16px; margin-bottom: 20px; background: var(--tint); color: var(--blue); border-radius: 6px; font-size: 13px; }
+.location-pending { display: inline-block; margin: 4px 0; font-size: 12px; color: var(--blue); background: var(--beige); padding: 2px 8px; border-radius: 4px; }
+.location-save-error { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.location-save-error > div:first-child { flex: 1; min-width: 200px; }
+.location-save-error p { margin: 4px 0; }
+.location-retry-actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
 .help-content > p { margin-bottom: 24px; }
 .help-content > div:not(.info-box) { display: flex; align-items: flex-start; gap: 16px; margin: 22px 0; }
 .help-content svg { color: var(--blue); margin-top: 3px; }
