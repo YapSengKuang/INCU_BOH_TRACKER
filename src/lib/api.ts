@@ -24,6 +24,7 @@ async function actor(){
   if(!user?.email)throw new Error('Sign in with an invited Google account.')
   return {uid:user.uid,email:user.email,emailVerified:user.emailVerified}
 }
+export function writeSession(){ return isDemo ? 'sample' : auth?.currentUser?.uid ?? 'guest' }
 export function watchAuth(callback:()=>void){
   if(!auth){callback();return ()=>{}}
   return onAuthStateChanged(auth,callback)
