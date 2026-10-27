@@ -24,6 +24,7 @@ export function writeOperation(c: Command, s: Snapshot): string {
 export const optimisticOperations = new Set([
   'stock-also',
   'stock-move',
+  'stock-correct',
   'brand-enable', 'location-create', 'stock-place',
 ])
 export function writeKey(c: Command) { return `${c.action}:${c.action==='taxon'?c.payload.table+':':''}${c.payload.id}` }
