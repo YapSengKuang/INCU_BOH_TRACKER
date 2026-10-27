@@ -299,3 +299,16 @@ describe('optimistic departments edit',()=>{
     expect(h.data.snapshot[table].find(x=>x.id===item.id)).toMatchObject(item)
   })
 })
+
+describe('optimistic staff invitations',()=>{
+  it('shows a pending invitation immediately without changing any membership or role',async()=>{
+    const h=harness();h.setWait();const invite:Command={action:'invite',payload:{id:'pending-invite',email:'new-staff@example.invalid'}}
+    h.queue.enqueue(invite,'owner',h.base)
+    expect(optimisticView(h.base,h.jobs).staff).toContainEqual({id:'pending-invite',email:'new-staff@example.invalid',role:'editor',status:'invited'})
+    expect(h.base.staff).not.toEqual(expect.arrayContaining([expect.objectContaining({email:'new-staff@example.invalid'})]))
+    expect(optimisticView(h.base,h.jobs).staff.find(x=>x.role==='owner')).toEqual(h.base.staff.find(x=>x.role==='owner'))
+    expect(()=>projectWrite(h.base,invite,'editor','denied',new Date().toISOString())).toThrow('owner')
+    expect(optimisticOperations.has('invite')).toBe(true)
+    h.gate.resolve();await vi.waitFor(()=>expect(h.jobs).toEqual([]))
+  })
+})
