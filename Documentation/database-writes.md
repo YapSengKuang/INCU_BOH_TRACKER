@@ -45,3 +45,11 @@ Locations → Add location accepts a quantity from 1 to 100 for one area, storag
 The whole set is locally validated and projected before requests start. Each location uses an individual queued transaction and retry ID, so this is not an atomic database batch: successful locations remain saved if another fails. A concurrent code collision is shown for review; existing records are never replaced or silently renumbered.
 
 Bulk-location verification: production build and 46 application/queue tests pass. Browser checks confirmed three cabinets plus two drawers persist after reload, generated numbering continues at C04/D03, manual codes remain available for a single location, and editing preserves an existing code. These checks used the isolated sample workspace.
+
+## Delete an occupied location
+
+Locations → Delete asks for confirmation and shows how many stock groups will be unassigned. Confirmation queues a removal for each assignment, then deletion of the empty location. Brands and stock groups remain available; groups without another assignment show “No location saved”. Other locations stay assigned. Each removal records its original address and the reason “Storage location deleted” in movement history.
+
+The UI projects the complete change immediately. Saves use the existing serialised, idempotent transactions and security rules. This is a sequence of transactions: successful removals remain saved if another fails. An unsuccessful removal prevents the final deletion while stock remains assigned; retained failed changes can be retried. Concurrent new assignments also block deletion and require a fresh review. Locations with children must have those children removed or relocated first.
+
+Verification: production build and 50 application/queue tests pass, including multiple affected groups, preservation of other placements and history, partial failure and retry, concurrent new assignments, and protection of child locations.

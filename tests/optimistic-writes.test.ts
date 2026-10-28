@@ -1,5 +1,6 @@
 import { describe,it,expect,vi } from 'vitest'
 import { applyDemo,newDemoData } from '../src/lib/demo'
+import { locationDeletionCommands, locationDeletionMessage } from '../src/lib/location-deletion'
 import { optimisticView, OptimisticWrites, projectWrite, writeOperation, optimisticOperations } from '../src/lib/optimistic-writes'
 import type { WriteJob,WriteView } from '../src/lib/optimistic-writes'
 import type { Command,Request } from '../src/lib/model'
@@ -395,4 +396,62 @@ describe('safe revision rebasing',()=>{
   expect(h.jobs[0].error).toContain('record changed')
   expect(h.data.snapshot.locations.find(l=>l.id===location.id)?.code).toBe('REMOTE-NEW')
  })
+})
+
+
+describe('confirmed occupied location deletion',()=>{
+  function occupied(){
+    const h=harness(),s=h.data.snapshot
+    s.locations=[{id:'delete-me',code:'D01',area:'Back of House',kind:'Drawer',parentId:null},{id:'keep-me',code:'R01',area:'Back of House',kind:'Rack',parentId:null}]
+    s.placements=[{groupId:s.groups[0].id,locationId:'delete-me'},{groupId:s.groups[1].id,locationId:'delete-me'},{groupId:s.groups[1].id,locationId:'keep-me'}]
+    return h
+  }
+  it('unassigns all affected groups immediately, keeps other locations and preserves records/history',async()=>{
+    const h=occupied(),before=structuredClone(h.base.snapshot);h.setWait()
+    expect(locationDeletionMessage(before,'delete-me')).toContain('2 stock groups')
+    expect(locationDeletionMessage(before,'delete-me')).toContain('No location saved')
+    h.queue.enqueueMany(locationDeletionCommands(before,'delete-me'),'editor',h.base)
+    const projected=optimisticView(h.base,h.jobs).snapshot
+    expect(projected.locations.map(l=>l.id)).toEqual(['keep-me'])
+    expect(projected.placements).toEqual([{groupId:before.groups[1].id,locationId:'keep-me'}])
+    expect(projected.groups).toEqual(before.groups);expect(projected.brands).toEqual(before.brands)
+    expect(projected.movements.slice(0,before.movements.length)).toEqual(before.movements)
+    expect(projected.movements.slice(-2).every(m=>m.kind==='remove'&&m.fromLabel?.includes('Drawer D01')&&m.reason==='Storage location deleted')).toBe(true)
+    h.gate.resolve();await vi.waitFor(()=>expect(h.jobs).toEqual([]))
+    expect(h.data.snapshot.placements).toEqual(projected.placements)
+    expect(h.requests.map(r=>r.action)).toEqual(['movement','movement','deleteLocation'])
+  })
+  it('retains an occupied location if an unassignment fails and safely retries after partial success',async()=>{
+    const h=occupied(),save=h.io.save;let fail=true
+    h.io.save=async(r,role)=>{if(fail&&r.action==='movement'){fail=false;throw new Error('Offline')}return save(r,role)}
+    h.queue.enqueueMany(locationDeletionCommands(h.base.snapshot,'delete-me'),'editor',h.base)
+    await vi.waitFor(()=>expect(h.jobs.filter(j=>j.status==='failed')).toHaveLength(2))
+    expect(h.data.snapshot.locations.some(l=>l.id==='delete-me')).toBe(true)
+    expect(h.data.snapshot.placements.filter(p=>p.locationId==='delete-me')).toHaveLength(1)
+    const removal=h.jobs.find(j=>j.command.action==='movement')!,deletion=h.jobs.find(j=>j.command.action==='deleteLocation')!
+    h.queue.retry(removal.id,'editor');await vi.waitFor(()=>expect(h.jobs).toHaveLength(1))
+    h.queue.retry(deletion.id,'editor');await vi.waitFor(()=>expect(h.jobs).toEqual([]))
+    expect(h.data.snapshot.locations.some(l=>l.id==='delete-me')).toBe(false)
+  })
+  it('does not delete new assignments made after confirmation',async()=>{
+    const h=occupied(),save=h.io.save
+    h.io.save=async(r,role)=>{
+      const saved=await save(r,role)
+      if(r.action==='movement'&& !h.data.snapshot.placements.some(p=>p.locationId==='delete-me')){
+        h.data.snapshot.placements.push({groupId:h.data.snapshot.groups[2].id,locationId:'delete-me'})
+        h.data.snapshot.store.revision++
+      }
+      return saved
+    }
+    h.queue.enqueueMany(locationDeletionCommands(h.base.snapshot,'delete-me'),'editor',h.base)
+    await vi.waitFor(()=>expect(h.jobs[0]?.status).toBe('failed'))
+    expect(h.requests.some(r=>r.action==='deleteLocation')).toBe(false)
+    expect(h.data.snapshot.locations.some(l=>l.id==='delete-me')).toBe(true)
+    expect(h.data.snapshot.placements.some(p=>p.locationId==='delete-me')).toBe(true)
+  })
+  it('blocks parent deletion before queuing any unassignments',()=>{
+    const h=occupied();h.data.snapshot.locations.push({id:'child',code:'C01',area:'Back of House',kind:'Shelf',parentId:'delete-me'})
+    expect(()=>locationDeletionCommands(h.base.snapshot,'delete-me')).toThrow('inside this unit')
+    expect(h.jobs).toEqual([]);expect(h.requests).toEqual([])
+  })
 })
