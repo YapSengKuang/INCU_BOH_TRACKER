@@ -445,3 +445,41 @@ main { max-width: 1550px; margin: auto; padding: 28px 32px 40px; }
 
 .movement-destination { display:flex; align-items:baseline; gap:8px; }
 .movement-destination svg { flex-shrink:0; align-self:center; }
+
+.report-overlay .dialog { width:min(1040px,calc(100vw - 28px)); }
+.report-actions { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px; }
+.report-paper { padding:28px; border:1px solid var(--line); background:white; color:#19344a; }
+.report-header { margin-bottom:24px; overflow-wrap:anywhere; }
+.report-header h1 { font-size:25px; margin-bottom:12px; }
+.report-header p { margin-bottom:8px; }
+.report-table { width:100%; border-collapse:collapse; table-layout:fixed; font-size:12px; }
+.report-table th, .report-table td { border:1px solid #c8d3da; padding:10px; text-align:left; vertical-align:top; overflow-wrap:anywhere; }
+.report-table thead th { background:#004e89; color:white; }
+.report-table th:first-child { width:19%; }
+.report-table th:nth-child(2) { width:34%; }
+.report-table th:nth-child(3) { width:29%; }
+.report-table th:nth-child(4) { width:18%; }
+.report-table td div { margin-top:6px; }
+.report-table tbody tr:nth-child(even) { background:#f5f8fa; }
+.report-note { margin-top:18px; color:#526678; font-size:11px; }
+@media(max-width:700px) {
+  .report-overlay .dialog { padding:16px; }
+  .report-paper { padding:14px; }
+  .report-table { font-size:10px; }
+  .report-table th, .report-table td { padding:5px; }
+}
+@media print {
+  @page { size:A4 portrait; margin:16mm; @bottom-right { content:'Page ' counter(page) ' of ' counter(pages); font-size:9pt; } }
+  body { background:white; }
+  body > :not(.report-overlay) { display:none !important; }
+  .report-overlay, .report-overlay .dialog { display:block !important; position:static !important; width:auto !important; max-width:none !important; max-height:none !important; height:auto !important; overflow:visible !important; margin:0 !important; padding:0 !important; border:0 !important; box-shadow:none !important; }
+  .report-overlay .dialog::backdrop { display:none; }
+  .report-overlay .dialog-head, .report-actions, .report-error { display:none !important; }
+  .report-paper { padding:0; border:0; }
+  .report-table { font-size:9pt; }
+  .report-table th, .report-table td { padding:3mm; }
+  .report-table thead { display:table-header-group; }
+  .report-table tr { break-inside:avoid; }
+  .report-header { break-inside:avoid; }
+  .report-table thead th { color:#19344a; background:#edf3f8; }
+}
