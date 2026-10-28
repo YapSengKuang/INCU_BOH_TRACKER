@@ -13,7 +13,10 @@ export function GroupForm(props: FormProps & { draft?: Extract<Command,{action:'
 export function LocationForm(props: FormProps & { location?: Location; draft?: Location; onCreateMany: (locations:Location[])=>void }) {
   const { s, location: old } = props, initial = old ?? props.draft
   const [id] = useState(() => initial?.id ?? crypto.randomUUID())
-  const [area,setArea] = useState(initial?.area ?? 'Sales floor'), [kind,setKind] = useState<Kind>(initial?.kind ?? 'Cabinet')
+  const areas = [...new Set(s.locations.map(location => location.area))].sort((a,b)=>a.localeCompare(b))
+  const [newArea,setNewArea] = useState(() => !areas.length || !!initial && !areas.includes(initial.area))
+  const [area,setArea] = useState(initial?.area ?? areas[0] ?? ''), [kind,setKind] = useState<Kind>(initial?.kind ?? 'Cabinet')
+  const savedArea = areas.find(existing => existing.toLocaleLowerCase() === area.trim().toLocaleLowerCase()) ?? area.trim()
   const [code,setCode] = useState(initial?.code ?? ''), [parentId,setParent] = useState(initial?.parentId ?? '')
   const [quantity,setQuantity] = useState('1'), [automatic,setAutomatic] = useState(!initial)
   const count = Number(quantity), generate = !old && automatic
@@ -23,18 +26,19 @@ export function LocationForm(props: FormProps & { location?: Location; draft?: L
     catch(e){ codeError=(e as Error).message }
   }
   return <SaveForm {...props} revision={s.store.revision}
-    command={()=>({action:'location',payload:{id,area:area.trim(),code:old?code.trim():(codes[0]??''),kind,parentId:parentId||null}})}
+    command={()=>({action:'location',payload:{id,area:savedArea,code:old?code.trim():(codes[0]??''),kind,parentId:parentId||null}})}
     onSubmitCommand={old?props.onSubmitCommand:command=>{
       if(command.action!=='location')return false
       if(codeError)throw new Error(codeError)
       props.onCreateMany(createLocationBatch(command.payload,codes,count))
     }} label={old?'Update location':Number.isInteger(count)&&count>1?`Create ${count} locations`:'Create location'}>
     {props.draft&&s.locations.some(l=>l.id===id)&&<div className="info-box">Currently saved: {locationLabel(s,id)}. Review these details before trying again.</div>}
-    <Field label="Area"><input required maxLength={160} list="areas" value={area} onChange={e=>{setArea(e.target.value);setParent('')}}/><datalist id="areas">{[...new Set(['Sales floor','Back of House','Birkenstock room',"men's fit",...s.locations.map(x=>x.area)])].map(x=><option key={x}>{x}</option>)}</datalist></Field>
+    <Field label="Area"><select required value={newArea?'new':`existing:${area}`} onChange={e=>{const value=e.target.value;setNewArea(value==='new');setArea(value==='new'?'':value.slice('existing:'.length));setParent('')}}>{areas.map(existing=><option key={existing} value={`existing:${existing}`}>{existing}</option>)}<option value="new">+ Add a new area</option></select></Field>
+    {newArea&&<Field label="New area name"><input required autoFocus maxLength={160} value={area} onChange={e=>{setArea(e.target.value);setParent('')}} placeholder="e.g. Upstairs stockroom"/></Field>}
     <div className="form-grid"><Field label="Storage type"><select value={kind} onChange={e=>setKind(e.target.value as Kind)}>{['Cabinet','Rack','Shelf','Drawer','Room','Wall','Tub','Area'].map(x=><option key={x}>{x}</option>)}</select></Field>
       {old?<Field label="Unique code" hint="Unique across the store."><input required maxLength={160} value={code} onChange={e=>setCode(e.target.value.toUpperCase())}/></Field>:<Field label="Quantity"><input type="number" inputMode="numeric" required min="1" max={MAX_LOCATION_QUANTITY} step="1" value={quantity} onChange={e=>{setQuantity(e.target.value);if(Number(e.target.value)>1)setAutomatic(true)}}/></Field>}
     </div>
-    <Field label="Inside a storage unit (optional)"><select value={parentId} onChange={e=>setParent(e.target.value)}><option value="">Standalone location</option>{s.locations.filter(x=>!x.parentId&&x.id!==id&&x.area===area).map(x=><option key={x.id} value={x.id}>{x.kind} {x.code}</option>)}</select></Field>
+    <Field label="Inside a storage unit (optional)"><select value={parentId} onChange={e=>setParent(e.target.value)}><option value="">Standalone location</option>{s.locations.filter(x=>!x.parentId&&x.id!==id&&x.area===savedArea).map(x=><option key={x.id} value={x.id}>{x.kind} {x.code}</option>)}</select></Field>
     {!old&&<>
       <label className="check"><input type="checkbox" checked={automatic} disabled={count>1} onChange={e=>setAutomatic(e.target.checked)}/>Generate codes automatically</label>
       {automatic?<Field label="Generated codes" hint="Codes are unique across the store."><output className="generated-codes" aria-label="Generated codes">{codeError||codes.join(', ')}</output></Field>:<Field label="Unique code" hint="Unique across the store, e.g. C03 or D02."><input required maxLength={160} value={code} onChange={e=>setCode(e.target.value.toUpperCase())} placeholder="C03"/></Field>}
