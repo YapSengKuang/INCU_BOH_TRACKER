@@ -386,3 +386,62 @@ main { max-width: 1550px; margin: auto; padding: 28px 32px 40px; }
 .optional-notes summary { cursor: pointer; color: var(--blue); font-size: 13px; font-weight: 550; padding: 5px 0; }
 .optional-notes summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 .notes-fields { display: grid; gap: 16px; padding-top: 16px; }
+
+.home-summary { max-width: 1100px; }
+.home-intro, .summary-heading, .summary-footer { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+.home-intro { margin-bottom:28px; }
+.home-intro p, .summary-heading p, .summary-empty p { margin:6px 0 0; }
+.summary-panel { padding:28px; border:1px solid var(--line); background:var(--surface); border-radius:12px; }
+.summary-heading { margin-bottom:16px; }
+.summary-toggle { display:flex; padding:4px; gap:4px; border:1px solid var(--line); border-radius:9px; background:var(--canvas); }
+.summary-toggle button { padding:9px 18px; border-radius:6px; background:transparent; font-weight:600; }
+.summary-toggle button[aria-pressed='true'] { background:var(--blue); color:white; }
+.summary-totals { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; padding:24px 0; }
+.summary-totals > div { display:flex; flex-direction:column; gap:4px; }
+.summary-totals strong { font-size:44px; line-height:1.15; letter-spacing:-1.5px; color:var(--blue); }
+.summary-totals span { color:var(--muted); }
+.summary-types { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+.summary-types > div { padding:16px; border-radius:8px; background:var(--tint); display:flex; flex-direction:column; justify-content:space-between; gap:12px; }
+.summary-types span { font-size:12px; color:var(--muted); }
+.summary-types strong { font-size:24px; }
+.summary-daily { margin:28px 0; }
+.summary-daily h3 { margin-bottom:18px; }
+.summary-day { display:grid; grid-template-columns:145px minmax(30px,1fr) 35px; align-items:center; gap:16px; margin:14px 0; }
+.summary-day > span { font-size:13px; }
+.summary-day small { display:block; color:var(--muted); }
+.summary-day > strong { text-align:right; font-variant-numeric:tabular-nums; }
+.summary-track { height:10px; background:var(--tint); border-radius:5px; overflow:hidden; }
+.summary-track > div { height:100%; background:var(--baltic); border-radius:5px; }
+.summary-day:last-child .summary-track > div { background:var(--orange); }
+.summary-empty { display:flex; gap:12px; padding:18px; background:var(--canvas); border-radius:8px; margin-bottom:24px; }
+.summary-footer { border-top:1px solid var(--line); padding-top:20px; }
+@media(max-width:700px) {
+  .summary-panel { padding:18px; }
+  .summary-types { grid-template-columns:repeat(2,1fr); }
+  .summary-day { grid-template-columns:105px minmax(20px,1fr) 28px; gap:10px; }
+  .summary-totals strong { font-size:36px; }
+}
+
+.destination-summary { margin:24px 0; }
+.destination-summary > p { margin:8px 0 20px; }
+.destination-card { border:1px solid var(--line); border-radius:10px; overflow:hidden; margin:16px 0; }
+.destination-heading { display:flex; gap:12px; align-items:center; padding:18px; background:var(--tint); }
+.destination-heading > div { flex:1; }
+.destination-heading h3 { font-size:16px; overflow-wrap:anywhere; }
+.destination-count { font-size:12px; color:var(--muted); white-space:nowrap; }
+.destination-stock { list-style:none; padding:0 18px; margin:0; }
+.destination-stock li { display:flex; justify-content:space-between; gap:16px; padding:16px 0; }
+.destination-stock li + li { border-top:1px solid var(--line); }
+.destination-stock p { margin:4px 0 0; }
+.destination-stock time { font-size:12px; color:var(--muted); flex-shrink:0; }
+.summary-statistics { margin:20px 0; }
+.summary-statistics > summary { cursor:pointer; font-weight:600; padding:12px 0; }
+@media(max-width:700px) {
+  .destination-heading { flex-wrap:wrap; padding:14px; }
+  .destination-count { margin-left:32px; }
+  .destination-stock { padding:0 14px; }
+  .destination-stock li { flex-direction:column; gap:6px; }
+}
+
+.movement-destination { display:flex; align-items:baseline; gap:8px; }
+.movement-destination svg { flex-shrink:0; align-self:center; }
