@@ -149,9 +149,9 @@ export class OptimisticWrites {
             // may have advanced the revision: rebase once only if the edited
             // record still matches, then validate every relationship again.
             const latest=await this.io.load(job.role)
-            if(job.session!==this.io.session())throw new Error('The signed-in account changed.')
+            if(job.session!==this.io.session())throw new Error('The signed-in account changed.',{cause:error})
             this.io.confirmed(latest)
-            if(writeTarget(latest,job.command)!==job.before)throw new Error('This record changed while saving. Review its latest values before trying again.')
+            if(writeTarget(latest,job.command)!==job.before)throw new Error('This record changed while saving. Review its latest values before trying again.',{cause:error})
             projectWrite(latest,job.command,job.role,job.id,job.createdAt)
             job.request={...job.request,expectedRevision:latest.snapshot.store.revision}
             confirmed=await this.io.save(job.request,job.role)

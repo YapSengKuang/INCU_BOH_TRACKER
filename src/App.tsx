@@ -44,7 +44,7 @@ export default function App() {
     if (window.matchMedia('(max-width:1100px)').matches) detailPanelRef.current?.scrollIntoView({block:'start'})
   },[selected])
   const closeModal = useCallback(()=>setModal(null),[])
-  const refresh = useCallback(async()=>{ const next=await loadSnapshot(); setS(next); return next },[])
+  const refresh = useCallback(async()=>{ const next=await loadSnapshot(); setS(next); return next },[setS])
   useEffect(()=>{
     let active=true
     loadSnapshot().then(next=>{if(active)setS(next)}).catch(e=>{if(active)setError(e.message)}).finally(()=>{if(active)setLoading(false)})
@@ -53,7 +53,7 @@ export default function App() {
       getRole().then(r=>{if(active&&version===authCheck.current)setRole(r)}).catch(e=>{if(active)setError(e.message)})
     })
     return ()=>{active=false;unsubscribe()}
-  },[])
+  },[setS])
   useEffect(()=>{let active=true;const revision=s?.store.revision;loadStaff(role).then(rows=>{if(active&&confirmedRef.current?.store.revision===revision)setStaff(rows)}).catch(e=>{if(active)setError(e.message)});return()=>{active=false}},[role,s?.store.revision])
   useEffect(()=>{if(role==='guest' && page==='settings')setPage('directory');if(role!=='owner' && (settingsTab==='staff'||settingsTab==='data'))setSettingsTab('brands')},[role,page,settingsTab])
   useEffect(()=>{if(!notice)return; const id=setTimeout(()=>setNotice(''),6000); return()=>clearTimeout(id)},[notice])

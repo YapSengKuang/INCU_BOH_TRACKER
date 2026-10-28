@@ -3,13 +3,13 @@ import { applyDemo,newDemoData } from '../src/lib/demo'
 import { locationDeletionCommands, locationDeletionMessage } from '../src/lib/location-deletion'
 import { optimisticView, OptimisticWrites, projectWrite, writeOperation, optimisticOperations } from '../src/lib/optimistic-writes'
 import type { WriteJob,WriteView } from '../src/lib/optimistic-writes'
-import type { Command,Request } from '../src/lib/model'
+import type { Command,Request,Role } from '../src/lib/model'
 const deferred=<T>()=>{let resolve!:(value:T)=>void;const promise=new Promise<T>(yes=>{resolve=yes});return {promise,resolve}}
 function harness(){
   let data=newDemoData(),jobs:WriteJob[]=[],session='one',confirmed:WriteView={snapshot:data.snapshot,staff:data.staff}
   const requests:Request[]=[],gate=deferred<void>()
   let wait=false,ambiguous=false
-  const io={session:()=>session,load:async()=>({snapshot:structuredClone(data.snapshot),staff:structuredClone(data.staff)}),save:async(r:Request,role:any)=>{
+  const io={session:()=>session,load:async()=>({snapshot:structuredClone(data.snapshot),staff:structuredClone(data.staff)}),save:async(r:Request,role:Role)=>{
     requests.push(r);if(wait)await gate.promise
     data=applyDemo(data,r,role)
     if(ambiguous){ambiguous=false;throw new Error('Response lost')}
@@ -17,7 +17,7 @@ function harness(){
   },confirmed:(v:WriteView)=>{confirmed=v},changed:(v:WriteJob[])=>{jobs=v},saved:vi.fn()}
   return {queue:new OptimisticWrites(io),get base(){return confirmed},get jobs(){return jobs},get data(){return data},requests,gate,io,setWait(){wait=true},loseResponse(){ambiguous=true},changeSession(){session='other'}}
 }
-const add=(id:string):Command=>({action:'location',payload:{id,code:id.toUpperCase(),area:'Back of House',kind:'Cabinet',parentId:null}})
+const add=(id:string):Extract<Command,{action:'location'}>=>({action:'location',payload:{id,code:id.toUpperCase(),area:'Back of House',kind:'Cabinet',parentId:null}})
 describe('shared optimistic writes',()=>{
   it('projects brands immediately and rolls back only the failed projection',async()=>{
     const h=harness();h.setWait();h.loseResponse()
@@ -33,7 +33,7 @@ describe('shared optimistic writes',()=>{
   })
   it('serialises rapid additions and keeps server revisions outside the UI projection',async()=>{
     const h=harness();h.setWait();h.queue.enqueue(add('one'),'editor',h.base);h.queue.enqueue(add('two'),'editor',h.base)
-    expect(optimisticView(h.base,h.jobs).snapshot.locations).toEqual(expect.arrayContaining([(add('one') as any).payload,(add('two') as any).payload]))
+    expect(optimisticView(h.base,h.jobs).snapshot.locations).toEqual(expect.arrayContaining([add('one').payload,add('two').payload]))
     expect(optimisticView(h.base,h.jobs).snapshot.store.revision).toBe(h.base.snapshot.store.revision)
     await vi.waitFor(()=>expect(h.requests).toHaveLength(1));h.gate.resolve()
     await vi.waitFor(()=>expect(h.jobs).toEqual([]))
@@ -47,8 +47,8 @@ describe('shared optimistic writes',()=>{
   })
   it('validates duplicate codes and parent relationships before displaying changes',()=>{
     const h=harness();const existing=h.base.snapshot.locations[0]
-    expect(()=>h.queue.enqueue({...add('dup'),payload:{...(add('dup') as any).payload,code:existing.code}},'editor',h.base)).toThrow('already in use')
-    expect(()=>h.queue.enqueue({...add('child'),payload:{...(add('child') as any).payload,parentId:'missing'}},'editor',h.base)).toThrow('storage unit')
+    expect(()=>h.queue.enqueue({...add('dup'),payload:{...add('dup').payload,code:existing.code}},'editor',h.base)).toThrow('already in use')
+    expect(()=>h.queue.enqueue({...add('child'),payload:{...add('child').payload,parentId:'missing'}},'editor',h.base)).toThrow('storage unit')
     expect(h.jobs).toEqual([])
   })
   it('ignores property ordering when comparing a queued edit with fresh data',async()=>{
@@ -65,7 +65,7 @@ describe('shared optimistic writes',()=>{
   })
 })
 
-function firstPlacement(h:ReturnType<typeof harness>):Command {
+function firstPlacement(h:ReturnType<typeof harness>):Extract<Command,{action:'movement'}> {
   const group=h.base.snapshot.groups[0]
   h.data.snapshot.placements=h.data.snapshot.placements.filter(p=>p.groupId!==group.id)
   return {action:'movement',payload:{id:crypto.randomUUID(),groupId:group.id,kind:'place',from:null,to:h.base.snapshot.locations[0].id,reason:'',privateNote:'Private staff note'}}
@@ -75,7 +75,7 @@ describe('stock location writes',()=>{
     const h=harness();h.setWait();const c=firstPlacement(h)
     h.queue.enqueue(c,'editor',h.base)
     const view=optimisticView(h.base,h.jobs)
-    expect(view.snapshot.placements).toContainEqual({groupId:(c as any).payload.groupId,locationId:(c as any).payload.to})
+    expect(view.snapshot.placements).toContainEqual({groupId:c.payload.groupId,locationId:c.payload.to})
     expect(view.snapshot.movements.at(-1)?.id).toBe(c.payload.id)
     expect(JSON.stringify(view)).not.toContain('Private staff note')
     expect(optimisticOperations.has('stock-place')).toBe(true)
@@ -144,7 +144,7 @@ describe('optimistic stock remove',()=>{
   it('updates only the intended link and keeps unrelated stock while saving',async()=>{
     const h=harness();h.setWait()
     const group=h.base.snapshot.groups[0],before=h.base.snapshot.placements.filter(p=>p.groupId===group.id)
-    const source=before[0].locationId,to=h.base.snapshot.locations.find(l=>!before.some(p=>p.locationId===l.id))!.id
+    const source=before[0].locationId
     const c:Command={action:'movement',payload:{id:crypto.randomUUID(),groupId:group.id,kind:'remove',from:source,to:null,reason:'Verified correction',privateNote:'Hidden note'}}
     h.queue.enqueue(c,'editor',h.base)
     const projected=optimisticView(h.base,h.jobs).snapshot
@@ -333,7 +333,7 @@ describe('optimistic staff access removal',()=>{
 describe('cross-operation failure isolation',()=>{
  it('does not send a dependent group if its pending brand failed to save',async()=>{
   const h=harness(),original=h.io.save,brand=h.base.snapshot.brands.find(b=>!b.active)!
-  const save=vi.fn(async(r:Request,role:any)=>{if(r.action==='taxon')throw new Error('Brand rejected');return original(r,role)})
+  const save=vi.fn(async(r:Request,role:Role)=>{if(r.action==='taxon')throw new Error('Brand rejected');return original(r,role)})
   h.io.save=save
   h.queue.enqueue({action:'taxon',payload:{table:'brands',id:brand.id,name:brand.name,active:true}},'editor',h.base)
   const group={id:'dependent-group',brandId:brand.id,categoryId:h.base.snapshot.categories[0].id,departmentId:h.base.snapshot.departments[0].id}

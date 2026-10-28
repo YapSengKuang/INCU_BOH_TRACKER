@@ -1,11 +1,11 @@
 import { collection, doc, getDocFromServer, getDocsFromServer } from 'firebase/firestore'
-import type { Firestore } from 'firebase/firestore'
+import type { DocumentData, Firestore } from 'firebase/firestore'
 import { ALL_COLLECTIONS, PUBLIC_COLLECTIONS, plain, snapshotFromRecords, staffFromRecords } from './firebase-schema.ts'
 import type { Records } from './firebase-schema.ts'
 import { ConflictError } from './model.ts'
 import type { Backup, Snapshot } from './model.ts'
-export type FirebaseBackup = Backup & { provider:'firebase';firebase:{store:Record<string,any>;collections:Records} }
-export async function readConsistentStore(db:Firestore,storeId:string,full=false):Promise<{snapshot:Snapshot;store:any;records:Records}> {
+export type FirebaseBackup = Backup & { provider:'firebase';firebase:{store:DocumentData;collections:Records} }
+export async function readConsistentStore(db:Firestore,storeId:string,full=false):Promise<{snapshot:Snapshot;store:DocumentData;records:Records}> {
   const root=doc(db,'stores',storeId)
   // All ordinary writes advance this revision, so equal before/after reads
   // bound a coherent export without needing a paid server or query transaction.

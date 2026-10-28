@@ -14,11 +14,13 @@ npm run dev
 Open the Local URL printed by Vite. With all environment variables unset, example records are saved in this browser's local storage. The **Preview as** picker lets you exercise guest, staff editor and owner screens. This picker exists only in sample mode; it is not production authentication. Browser sample data is not shared across devices. Editing uses Web Locks and requires localhost or HTTPS in a current browser.
 
 ```sh
+npm ci --prefix tools/eslint
+npm run lint
 npm test
 npm run build
 ```
 
-These commands check the sample reducer/starter data and production build. Run `npm run test:rules` with Java 21+ to exercise actual Firestore rules/transactions locally, including denied writes, competing revisions, hostile batches and recovery. No cloud account or Docker is needed. `npm run emulators` starts Auth and Firestore for local integration. The superseded SQL prototype is retained under `archive/supabase`.
+Use Node 24 for linting. The [isolated lint toolchain](tools/eslint/README.md) keeps its parser compatible without changing the app compiler. The ESLint workflow runs the same lint command on GitHub and publishes code-scanning results. These commands check lint, the sample reducer/starter data and the production build. Run `npm run test:rules` with Java 21+ to exercise actual Firestore rules/transactions locally, including denied writes, competing revisions, hostile batches and recovery. No cloud account or Docker is needed. `npm run emulators` starts Auth and Firestore for local integration. The superseded SQL prototype is retained under `archive/supabase`.
 
 ## Sprint 1 workflows
 

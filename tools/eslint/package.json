@@ -1,0 +1,15 @@
+{
+  "name": "boh-lint-tools",
+  "private": true,
+  "type": "module",
+  "description": "Isolated ESLint toolchain; its supported TypeScript parser does not change the app compiler.",
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@microsoft/eslint-formatter-sarif": "3.1.0",
+    "eslint": "10.13.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.13.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1"
+  }
+}

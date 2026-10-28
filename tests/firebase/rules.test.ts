@@ -4,24 +4,24 @@ import { afterAll,beforeAll,beforeEach,describe,expect,it } from 'vitest'
 import { initializeTestEnvironment,assertFails } from '@firebase/rules-unit-testing'
 import type { RulesTestEnvironment } from '@firebase/rules-unit-testing'
 import { doc,getDoc,getDocs,collection,setDoc,updateDoc,deleteDoc,writeBatch,serverTimestamp,Timestamp } from 'firebase/firestore'
-import type { Firestore } from 'firebase/firestore'
+import type { DocumentData, Firestore } from 'firebase/firestore'
 import { applyFirebaseCommand } from '../../src/lib/firebase-commands.ts'
 import type { FirebaseRequest,Actor } from '../../src/lib/firebase-commands.ts'
 import { seedRecords,addOwner,prepareRecovery } from '../../src/lib/firebase-seed.ts'
 import { exportFirebaseStore,readConsistentStore } from '../../src/lib/firebase-store.ts'
-import type { Snapshot } from '../../src/lib/model.ts'
+import type { MoveKind, Snapshot } from '../../src/lib/model.ts'
 
 let env:RulesTestEnvironment
 const owner:Actor={uid:'owner',email:'owner@example.com',emailVerified:true},editor:Actor={uid:'editor',email:'editor@example.com',emailVerified:true}
 const actorDb=(actor:Actor)=>env.authenticatedContext(actor.uid,{email:actor.email,email_verified:actor.emailVerified}).firestore() as unknown as Firestore
 const ref=(db:Firestore,t:string,id:string)=>doc(db,'stores','main',t,id)
 const fixture:Snapshot={store:{id:'main',name:'BOH test',timezone:'Australia/Sydney',revision:0},brands:[{id:'brand',name:'Brand',active:true,aliases:[],departments:[],sourcePages:[],retrievedOn:null}],categories:[{id:'category',name:'Category',active:true}],departments:[{id:'department',name:'Department',active:true}],locations:[{id:'a',area:'Room',kind:'Cabinet',code:'A',parentId:null},{id:'b',area:'Room',kind:'Rack',code:'B',parentId:null},{id:'child',area:'Room',kind:'Drawer',code:'A1',parentId:'a'}],groups:[{id:'group',brandId:'brand',categoryId:'category',departmentId:'department'}],placements:[],movements:[]}
-async function run(db:Firestore,actor:Actor,command:any,expected?:number,requestId=crypto.randomUUID()){
+async function run(db:Firestore,actor:Actor,command:Pick<FirebaseRequest,'action'|'payload'>,expected?:number,requestId=crypto.randomUUID()){
   const revision=expected??(await getDoc(doc(db,'stores','main'))).data()!.revision
   const request={...command,expectedRevision:revision,requestId} as FirebaseRequest
   await applyFirebaseCommand(db,'main',request,actor);return request
 }
-const movement=(id:string,kind:string,from:string|null,to:string|null)=>({action:'movement',payload:{id,groupId:'group',kind,from,to,reason:'Verified',privateNote:'Private staff note'}})
+const movement=(id:string,kind:MoveKind,from:string|null,to:string|null)=>({action:'movement' as const,payload:{id,groupId:'group',kind,from,to,reason:'Verified',privateNote:'Private staff note'}})
 beforeAll(async()=>{env=await initializeTestEnvironment({projectId:'demo-boh',firestore:{host:'127.0.0.1',port:8787,rules:readFileSync('firebase/firestore.rules','utf8')}})})
 afterAll(async()=>{await env?.cleanup()})
 beforeEach(async()=>{
@@ -130,8 +130,8 @@ describe('Firestore permissions and atomic stock commands',()=>{
     for(const variant of variants){
       const client=variant==='unverified'?actorDb({...editor,emailVerified:false}):variant==='uninvited'?actorDb({uid:'stranger',email:'stranger@example.com',emailVerified:true}):db
       const rid=`hostile-${variant}`,mid=`movement-${variant}`,batch=writeBatch(client)
-      const p:any={...movement(mid,'place',null,'b').payload,groupLabel:'Brand · Category · Department'}
-      const history:any={id:mid,groupId:'group',kind:'place',from:null,to:'b',fromLabel:null,toLabel:'Room → Rack B',groupLabel:p.groupLabel,reason:'Verified',at:serverTimestamp(),lastRequest:rid}
+      const p:DocumentData={...movement(mid,'place',null,'b').payload,groupLabel:'Brand · Category · Department'}
+      const history:DocumentData={id:mid,groupId:'group',kind:'place',from:null,to:'b',fromLabel:null,toLabel:'Room → Rack B',groupLabel:p.groupLabel,reason:'Verified',at:serverTimestamp(),lastRequest:rid}
       if(variant==='forged-label'){p.groupLabel='Fake';history.groupLabel='Fake'}
       if(variant==='forged-address')history.toLabel='Fake address'
       if(variant==='private-leak')history.privateNote='Secret'

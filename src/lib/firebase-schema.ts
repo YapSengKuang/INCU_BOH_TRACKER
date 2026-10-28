@@ -1,9 +1,10 @@
+import type { DocumentData } from 'firebase/firestore'
 import type { Snapshot, Staff } from './model.ts'
 export const PUBLIC_COLLECTIONS = ['brands','categories','departments','locations','groups','movements'] as const
 export const PRIVATE_COLLECTIONS = ['members','invitations','accessEmails','commands'] as const
 export const ALL_COLLECTIONS = [...PUBLIC_COLLECTIONS,'codes','uniqueNames','groupKeys',...PRIVATE_COLLECTIONS] as const
 export type CollectionName = typeof ALL_COLLECTIONS[number]
-export type Records = Record<string, Record<string, Record<string, any>>>
+export type Records = Record<string, Record<string, DocumentData>>
 export const nameKey = (name:string) => name.toLowerCase().replaceAll('%','%25').replaceAll('/','%2f').replaceAll('.','%2e')
 export const groupKey = (g:{brandId:string;categoryId:string;departmentId:string}) => `${g.brandId}|${g.categoryId}|${g.departmentId}`
 export function validId(id:string) { if (!/^[A-Za-z0-9_#-]{1,160}$/.test(id)) throw new Error('Invalid record ID.') }
@@ -12,13 +13,15 @@ export function normaliseEmail(value:string) {
   if(email.length>254 || !/^[^\s/@]+@[^\s/@]+\.[^\s/@]+$/.test(email)) throw new Error('Enter a valid email address.')
   return email
 }
-export function plain(value:any):any {
-  if(value && typeof value.toDate==='function') return value.toDate().toISOString()
+type Plain<T> = T extends {toDate():Date} ? string : T extends (infer Item)[] ? Plain<Item>[] : T extends object ? {[Key in keyof T]:Plain<T[Key]>} : T
+export function plain<T>(value:T):Plain<T>
+export function plain(value:unknown):unknown {
+  if(value && typeof value==='object' && 'toDate' in value && typeof value.toDate==='function') return value.toDate().toISOString()
   if(Array.isArray(value)) return value.map(plain)
   if(value && typeof value==='object') return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,plain(v)]))
   return value
 }
-export function snapshotFromRecords(store:any, records:Records):Snapshot {
+export function snapshotFromRecords(store:DocumentData, records:Records):Snapshot {
   const rows=(t:string)=>Object.values(records[t]??{})
   const groups=rows('groups')
   return {

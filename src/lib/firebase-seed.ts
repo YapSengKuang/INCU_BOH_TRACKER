@@ -38,7 +38,7 @@ export function prepareRecovery(input:unknown,newId:string,name:string, timestam
   const source=b.firebase.collections
   if(Object.keys(source).some(t=>!(ALL_COLLECTIONS as readonly string[]).includes(t)))throw new Error('Unknown collection in backup.')
   for(const t of ALL_COLLECTIONS)if(!source[t]||typeof source[t]!=='object'||Array.isArray(source[t]))throw new Error(`Backup is missing ${t}.`)
-  const canonical=(x:any):string=>JSON.stringify(Array.isArray(x)?x.map(canonical).sort():x&&typeof x==='object'?Object.fromEntries(Object.keys(x).sort().map(k=>[k,canonical(x[k])])):x)
+  const canonical=(x:unknown):string=>JSON.stringify(Array.isArray(x)?x.map(canonical).sort():x&&typeof x==='object'?Object.fromEntries(Object.keys(x).sort().map(k=>[k,canonical((x as Record<string,unknown>)[k])])):x)
   if(canonical(snapshotFromRecords(b.firebase.store,source))!==canonical(b.snapshot))throw new Error('Public snapshot does not match Firebase records.')
   const notes=Object.fromEntries(Object.values(source.commands).filter(c=>c.action==='movement').map(c=>[c.payload.id,c.payload.privateNote]))
   if(canonical(staffFromRecords(source))!==canonical(b.staff)||canonical(notes)!==canonical(b.privateNotes))throw new Error('Private snapshot does not match Firebase records.')

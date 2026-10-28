@@ -50,10 +50,10 @@ export async function applyFirebaseCommand(db:Firestore, storeId:string, r:Fireb
         validId(p.id);validId(p.brandId);validId(p.categoryId);validId(p.departmentId)
         const b=(await read('brands',p.brandId))!,c=(await read('categories',p.categoryId))!,d=(await read('departments',p.departmentId))!
         if(!b.active||!c.active||!d.active)throw new Error('Choose an active brand, category and department.')
-        if(await read('groupKeys',groupKey(p as any),false))throw new Error('This stock group already exists. Open it to add a location.')
+        if(await read('groupKeys',groupKey({brandId:p.brandId,categoryId:p.categoryId,departmentId:p.departmentId}),false))throw new Error('This stock group already exists. Open it to add a location.')
         if(await read('groups',p.id,false))throw new Error('This stock group ID is already in use.')
         set('groups',p.id,{...p,locationIds:[],lastRequest:r.requestId})
-        set('groupKeys',groupKey(p as any),{groupId:p.id,lastRequest:r.requestId});break
+        set('groupKeys',groupKey({brandId:p.brandId,categoryId:p.categoryId,departmentId:p.departmentId}),{groupId:p.id,lastRequest:r.requestId});break
       }
       case 'location': {
         validId(p.id);requireText(p.area,'Area');requireText(p.code,'Location code')

@@ -13,3 +13,5 @@ archive/supabase/database/.temp/
 *-debug.log
 firestore-debug.log
 ui-debug.log
+
+eslint-results.sarif

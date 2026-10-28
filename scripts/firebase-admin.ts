@@ -3,6 +3,8 @@ import { readFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { applicationDefault,initializeApp } from 'firebase-admin/app'
 import { Firestore,getFirestore,Timestamp } from 'firebase-admin/firestore'
+import type { DocumentData } from 'firebase-admin/firestore'
+import type { Records } from '../src/lib/firebase-schema.ts'
 import { getAuth } from 'firebase-admin/auth'
 import { seedRecords,prepareRecovery } from '../src/lib/firebase-seed.ts'
 import { normaliseEmail,validId } from '../src/lib/firebase-schema.ts'
@@ -19,7 +21,7 @@ let cliCredentials:Record<string,string>|undefined
 const cliAccount=option('cli-account',false)
 if(cliAccount){
   const require=createRequire(import.meta.url),cliAuth=require('firebase-tools/lib/auth'),cliApi=require('firebase-tools/lib/api')
-  const account=cliAuth.getAllAccounts().find((a:any)=>a.user.email.toLowerCase()===cliAccount.toLowerCase())
+  const account=cliAuth.getAllAccounts().find((a:{user:{email:string}})=>a.user.email.toLowerCase()===cliAccount.toLowerCase())
   if(!account?.tokens.refresh_token)throw new Error('Sign in to the requested Firebase CLI account first.')
   cliCredentials={type:'authorized_user',client_id:cliApi.clientId(),client_secret:cliApi.clientSecret(),refresh_token:account.tokens.refresh_token,quota_project_id:projectId}
   credential={async getAccessToken(){const t=await cliAuth.getAccessToken(account.tokens.refresh_token,['https://www.googleapis.com/auth/cloud-platform','https://www.googleapis.com/auth/firebase']);return {access_token:t.access_token,expires_in:Math.max(60,Math.floor((t.expires_at-Date.now())/1000))}}}
@@ -43,17 +45,17 @@ try{
     })
     console.log(`Initial owner set for ${projectId}/${storeId}.`)
   }else{
-    let store:any,records:any
+    let store:DocumentData,records:Records
     if(command==='seed'){
-      const directory=JSON.parse(await readFile(new URL('../Documentation/incu-brands.seed.json',import.meta.url),'utf8'))
-      const snapshot:Snapshot={store:{id:storeId,name:option('name',false)||'BOH',timezone:'Australia/Melbourne',revision:0},brands:directory.brands.map((b:any)=>({id:b.slug,name:b.name,active:false,aliases:[],departments:b.departments,sourcePages:b.source_pages,retrievedOn:directory.retrieved_on})),categories:['Knitwear','Denim','Footwear','T-shirts','Outerwear','Accessories','Dresses','Trousers','Tops','Jackets','Hats','Bags'].map(name=>({id:name.toLowerCase(),name,active:true})),departments:['Women','Men','Unisex','Unspecified'].map(name=>({id:name.toLowerCase(),name,active:true})),locations:[],groups:[],placements:[],movements:[]}
+      const directory=JSON.parse(await readFile(new URL('../Documentation/incu-brands.seed.json',import.meta.url),'utf8')) as {retrieved_on:string;brands:{slug:string;name:string;departments:string[];source_pages:string[]}[]}
+      const snapshot:Snapshot={store:{id:storeId,name:option('name',false)||'BOH',timezone:'Australia/Melbourne',revision:0},brands:directory.brands.map(b=>({id:b.slug,name:b.name,active:false,aliases:[],departments:b.departments,sourcePages:b.source_pages,retrievedOn:directory.retrieved_on})),categories:['Knitwear','Denim','Footwear','T-shirts','Outerwear','Accessories','Dresses','Trousers','Tops','Jackets','Hats','Bags'].map(name=>({id:name.toLowerCase(),name,active:true})),departments:['Women','Men','Unisex','Unspecified'].map(name=>({id:name.toLowerCase(),name,active:true})),locations:[],groups:[],placements:[],movements:[]}
       store={...snapshot.store,lastRequest:'bootstrap'};records=seedRecords(snapshot)
     }else{
       const backup=JSON.parse(await readFile(option('backup'),'utf8'))
       const result=prepareRecovery(backup,storeId,option('name',false)||'Recovered BOH',iso=>Timestamp.fromDate(new Date(iso)))
       store=result.store;records=result.records
       // Recovery in another project must preserve real identity references.
-      for(const m of Object.values(records.members) as any[]){const u=await getAuth(app).getUser(m.uid);if(u.email?.toLowerCase()!==m.email||!u.emailVerified)throw new Error('Restore matching verified Auth identities before recovering membership.')}
+      for(const m of Object.values(records.members)){const u=await getAuth(app).getUser(m.uid);if(u.email?.toLowerCase()!==m.email||!u.emailVerified)throw new Error('Restore matching verified Auth identities before recovering membership.')}
     }
     const entries=Object.entries(records).flatMap(([table,rows])=>Object.entries(rows as object).map(([id,data])=>({ref:root.collection(table).doc(id),data})))
     if(entries.length>450)throw new Error('This atomic recovery tool supports up to 450 documents. Keep the original export and use a reviewed administrator migration for larger stores.')
